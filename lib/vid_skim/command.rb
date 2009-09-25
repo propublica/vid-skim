@@ -36,17 +36,10 @@ Commands:
     
     #Build the html files in the videos directory
     def run_build
-<<<<<<< HEAD:lib/vid_skim/command.rb
       Dir.glob(@directory + "/videos/*.json").each do |f|
         template = ERB.new(File.open(VidSkim::ROOT +
                                 '/views/template.html.erb', 'r').read)
         @transcript = Transcript.find(f)
-=======
-      Dir.glob(@directory + "videos/*.json").each do |f|
-        template  = ERB.new << File.open(VidSkim::ROOT +
-                              'views/template.html.erb', 'r').read
-        @tube = @tube.new(JSON.parse(open(f, 'r')))
->>>>>>> dce6939ef16ff865fa354692cbb20e4d44ca4132:lib/vid_skim/command.rb
         str = template.result(binding)
         File.new(@directory + "/html/#{@transcript.slug}.html", "w").write(str)
       end

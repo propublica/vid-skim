@@ -30,8 +30,8 @@ Commands:
     # Install the example VidSkim folder to a location of your choosing.
     def run_install
       FileUtils.mkdir_p(@directory) unless File.exists?(@directory)
-      install_dir "#{VidSkim::ROOT}/example/html",   "#{@directory}/html"
-      install_dir "#{VidSkim::ROOT}/example/videos", "#{@directory}/videos"
+      install_dir "#{VidSkim::ROOT}/template/html",   "#{@directory}/html"
+      install_dir "#{VidSkim::ROOT}/template/videos", "#{@directory}/videos"
     end
     
     #Build the html files in the videos directory

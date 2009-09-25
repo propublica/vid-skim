@@ -32,13 +32,13 @@ Gem::Specification.new do |s|
   end
   
   s.files = %w(
-    example/html/images/next-hover.jpg
-    example/html/images/next.jpg
-    example/html/images/prev-hover.jpg
-    example/html/images/prev.jpg
-    example/html/javascripts/vid_skim.js
-    example/html/stylesheets/vid-skim.css
-    example/videos/example.json
+    template/html/images/next-hover.jpg
+    template/html/images/next.jpg
+    template/html/images/prev-hover.jpg
+    template/html/images/prev.jpg
+    template/html/javascripts/vid_skim.js
+    template/html/stylesheets/vid-skim.css
+    template/videos/example.json
     lib/vid_skim/command.rb
     lib/vid_skim/transcript.rb
     lib/vid_skim/inflector.rb

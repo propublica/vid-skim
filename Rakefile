@@ -1,3 +1,8 @@
+desc "Run all specs"
+task :spec do
+  sh "spec #{Dir['spec/models/*.rb'].join(' ')}"
+end
+
 namespace :gem do
   
   desc 'Build and install vid-skim gem'

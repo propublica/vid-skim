@@ -1,0 +1,22 @@
+type: map
+class: Tube
+desc: youtube transcript wrapper
+mapping:
+  "title":
+    type: str
+    required: yes
+  "youtube_id": 
+    type: str
+    required: yes
+  "deck":
+    type: str
+    required: yes
+  "footer":
+    type: str
+    required: yes
+  "live":
+    type: bool
+    required: yes
+  "default":
+    type: str
+    required: yes

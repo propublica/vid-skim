@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<%= title :site => "ProPublica", :reverse => true %>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta http-equiv="content-language" content="en-us">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<meta name="MSSmartTagsPreventParsing" content="true">
+	<meta name="Copyright" content="(c) <%= Time.now().year %> Copyright: Pro Publica, Inc.">
+	<meta name="Keywords" content="">
+	<meta name="Description" content=" ProPublica is an independent, non-profit newsroom that produces investigative journalism in the public interest.">
+	<meta name="authors" content="ProPublica">
+	<link rel="shortcut icon" href="http://propublica.org/favicon.ico" type="image/x-icon">
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+  <script type="text/javascript">
+    google.load("swfobject", "2.1");
+    google.load("jquery", "1");  
+    
+  </script>
+
+	<%= javascript_include_tag 'application.js', 'equiv.js' %>
+	<%= stylesheet_link_tag 'http://www.propublica.org/css/master3.css', 'http://www.propublica.org/css/watchdog.css', 'application.css'%>
+
+</head>
+<body id="special">
+<div id="wrapper">
+<%= remote_snippet 'header' %>	
+<div>
+	<%= yield %>
+</div>	
+<%= remote_snippet 'footer'  %>
+</div> <!-- /div wrapper -->
+<%= render :partial => "shared/google_analytics" %>
+</body>
+</html>

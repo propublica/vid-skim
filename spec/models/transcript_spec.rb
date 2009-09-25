@@ -1,24 +1,13 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require 'json'
-require 'kwalify'
-
+require 'spec/spec_helper'
 
 describe Transcript do
   before(:each) do
-    @json = File.open("spec/fixtures/transcripts.json").read
-    @valid_attributes = {
-      :id => 'eerhqc4r19E',
-      :hash => JSON.parse(@json)
-      
-    }
-    @t = Transcript.new(@valid_attributes[:hash], @valid_attributes[:id])
-    schema = Kwalify::Yaml.load(File.open("config/tube/transcripts/schema.json").read)
-    validator = Kwalify::Validator.new(schema)
-    @parser = Kwalify::Yaml::Parser.new(validator)
+    @data = JSON.parse(File.read("spec/fixtures/transcript.json"))
+    @t = Transcript.new(@data)
   end
 
   it "should create a new instance given valid attributes" do
-    Transcript.new(@valid_attributes[:hash], @valid_attributes[:id])
+    Transcript.new(@data)
   end
   
   it "should have divisions" do
@@ -45,7 +34,9 @@ describe Transcript do
   end
   
   it "should return the same hash as was put in" do
-    @t.to_hash.should == @valid_attributes[:hash]
+    transcript_entry_count = @t.to_hash['Transcript']['entries'].length
+    data_entry_count = @data["divisions"]["Transcript"]["entries"].length
+    transcript_entry_count.should == data_entry_count
   end
   
   it "should be reversible" do

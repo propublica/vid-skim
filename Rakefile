@@ -1,3 +1,8 @@
+desc "Run all specs"
+task :spec do
+  sh "spec --colour --format progress --loadby mtime --reverse #{Dir['spec/models/*.rb'].join(' ')}"
+end
+
 namespace :gem do
   
   desc 'Build and install vid-skim gem'
@@ -12,3 +17,5 @@ namespace :gem do
   end
   
 end
+
+task :default => :spec

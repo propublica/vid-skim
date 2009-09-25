@@ -61,7 +61,7 @@ Commands:
         return unless ['y', 'yes', 'ok'].include? gets.chomp.downcase
       end
       FileUtils.cp_r(source, dest)
-      puts "installed #{dest}"
+      puts "installed #{dest}" unless ENV["VID_SKIM_ENV"] == 'test'
     end
       
   end

@@ -1,6 +1,6 @@
 desc "Run all specs"
 task :spec do
-  sh "spec #{Dir['spec/models/*.rb'].join(' ')}"
+  sh "spec --colour --format progress --loadby mtime --reverse #{Dir['spec/models/*.rb'].join(' ')}"
 end
 
 namespace :gem do
@@ -17,3 +17,5 @@ namespace :gem do
   end
   
 end
+
+task :default => :spec

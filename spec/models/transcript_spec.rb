@@ -1,5 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-require 'json'
+require 'spec/spec_helper'
 
 describe Transcript do
   before(:each) do

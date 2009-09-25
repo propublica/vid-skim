@@ -35,7 +35,13 @@ Commands:
     end
     
     def run_build
-      
+      Dir.glob(@directory + "videos/*.json").each do |f|
+        template  = ERB.new << File.open(VidSkim::ROOT +
+                              'views/template.html.erb', 'r').read
+        @tube = @tube.new(JSON.parse(open(f, 'r'))
+        str = template.result(binding)
+        File.new(@directory + "/html/#{@tube.slug}.html", "w").write(str)
+      end
     end
     
     # Print out `vidskim` usage.

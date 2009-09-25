@@ -22,7 +22,6 @@ module VidSkim
     def run_build
       
     end
-    
   end
   
 end

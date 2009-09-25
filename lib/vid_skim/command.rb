@@ -4,6 +4,15 @@ module VidSkim
   # and building out the exported HTML files.
   class Command
     
+    # Command-line banner for the usage message.
+    BANNER = <<-EOS
+Usage: vidskim COMMAND path/to/directory
+
+Commands:
+  install     Install the VidSkim configuration to the specified directory
+  build       Build all videos in a VidSkim directory into HTML pages
+    EOS
+    
     # Creating a VidSkim::Command parses all command-line arguments and options.
     def initialize
       @command = ARGV.shift
@@ -13,7 +22,8 @@ module VidSkim
     def run
       case @command
         when 'install' then run_install
-        when 'build' then run_build
+        when 'build'   then run_build
+        else                usage
       end
     end
     
@@ -30,7 +40,7 @@ module VidSkim
     
     # Print out `vidskim` usage.
     def usage
-      
+      puts BANNER
     end
     
     

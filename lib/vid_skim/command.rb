@@ -40,7 +40,7 @@ Commands:
     
     # Print out `vidskim` usage.
     def usage
-      puts BANNER
+      puts "\n#{BANNER}\n"
     end
     
     

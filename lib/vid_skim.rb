@@ -12,6 +12,7 @@ autoload :ERB,        'erb'
 autoload :FileUtils,  'fileutils'
 autoload :Set,        'set'
 
+
 module VidSkim
   autoload :Command, 'vid_skim/command'
   autoload :Transcript, "vid_skim/transcript"

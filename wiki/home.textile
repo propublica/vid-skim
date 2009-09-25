@@ -1,0 +1,26 @@
+<pre style="width: 320px;">
+  # Install the gem:
+  sudo gem install vid-skim
+</pre>
+
+The *Video Skimmer* builds an HTML page that allows you to surround a *YouTube* video with transcripts and annotations. The resulting HTML can be dropped into a content management system, or into the middle of an article. In order to annotate a video, you write a JSON specification that uses timecodes to mark out certain segments, and includes the accompanying text. The @vidskim@ command will use your specification to wrap the video with a clickable timeline, and a navigation bar to each of your segments. As the video plays, the accompanying text is shown alongside.
+
+!http://jashkenas.s3.amazonaws.com/images/vid-skim.png!
+
+h3. Usage
+
+First, use the @vidskim@ command to install a *specification folder*, where you'll keep the JSON files for each of your videos:
+
+<pre>
+  >> vidskim install ~/video_skimmer
+  installed ~/video_skimmer/html
+  installed ~/video_skimmer/videos
+</pre>
+
+Then, write your video's JSON specification, using @videos/example.json@ as an example of the structure. When you're ready to build out the HTML page:
+
+<pre>
+  >> vidskim build ~/video_skimmer
+</pre>
+
+All of the specifications inside of the @videos@ folder have been read, and their corresponding pages generated into the @html@ folder, ready for inclusion in your website.

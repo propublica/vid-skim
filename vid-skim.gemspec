@@ -31,7 +31,18 @@ Gem::Specification.new do |s|
   end
   
   s.files = %w(
-README
-<list of files goes here>
-)
+    example/html/images/next-hover.jpg
+    example/html/images/next.jpg
+    example/html/images/prev-hover.jpg
+    example/html/images/prev.jpg
+    example/html/javascripts/vid_skim.js
+    example/html/stylesheets/vid-skim.css
+    example/videos/example.json
+    lib/vid_skim/command.rb
+    lib/vid_skim/transcript.rb
+    lib/vid_skim/inflector.rb
+    lib/vid_skim.rb
+    vid-skim.gemspec
+    views/template.html.erb
+  )
 end

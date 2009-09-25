@@ -34,13 +34,14 @@ Commands:
       install_dir "#{VidSkim::ROOT}/example/videos", "#{@directory}/videos"
     end
     
+    #Build the html files in the videos directory
     def run_build
-      Dir.glob(@directory + "videos/*.json").each do |f|
-        template  = ERB.new << File.open(VidSkim::ROOT +
-                              'views/template.html.erb', 'r').read
-        @tube = @tube.new(JSON.parse(open(f, 'r'))
+      Dir.glob(@directory + "/videos/*.json").each do |f|
+        template = ERB.new(File.open(VidSkim::ROOT +
+                                '/views/template.html.erb', 'r').read)
+        @transcript = Transcript.find(f)
         str = template.result(binding)
-        File.new(@directory + "/html/#{@tube.slug}.html", "w").write(str)
+        File.new(@directory + "/html/#{@transcript.slug}.html", "w").write(str)
       end
     end
     

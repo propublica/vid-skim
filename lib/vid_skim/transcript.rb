@@ -5,41 +5,50 @@
 
 module VidSkim
   class Transcript
-    attr_accessor :divisions
-    attr_reader :errors
+    attr_accessor :divisions, :title, :youtube_id, :duration
 
-    def initialize(hash, id)
-      @id = id
+    def initialize(hash)
       @errors = []
       @divisions = {}
-      hash.each_pair do |key, value|
+      @youtube_id = hash["youtube_id"]
+      @title = hash["title"]
+      @duration = hash["length"].to_i
+      hash["divisions"].each_pair do |key, value|
                         @divisions["#{key}"] = Transcript::Division.new(key)
                         value.each_pair do |method, value|    
                           @divisions["#{key}"].send("#{method}=", value) 
                         end
                      end
-    end    
-  
-
-  
+    end
+    
     # Returns the json representation
     def to_json
       self.to_hash.to_json
     end
+    
     # Returns the hash representation
     def to_hash
       c = {}
       @divisions.each_pair{|d,v| c.merge!(v.collect)}
       c
+    end 
+  
+
+    # Returns a parameterized version of the title for creating the actual
+    # html file
+    def slug
+      Inflector.parameterize(@title, "_")
     end
+
   
     class << self
-      # Searches for a Transcript based on youtube id
-      def find(id)
-        hash = JSON.parse(File.open("config/tube/transcripts/#{id}.json").read)
-        instance = Transcript.new(hash, id)
+      # Searches for a Transcript based on a path
+      def find(f)
+        hash = JSON.parse(File.open("#{f}").read)
+        Transcript.new(hash)
       end
     end
+    
   
     # The building blocks of transcripts: each Transcript::Division is a
     # different view to the video
@@ -51,8 +60,8 @@ module VidSkim
         @entries = []
       end
     
-      # Sets each individual Entry from a straight hash of +entries+, which are
-      # synced to the video
+      # Sets each individual Entry from a straight hash of +entries+, which 
+      # are synced to the video
       def entries=(entries)
         @entries=[]
         entries.each do |e|
@@ -62,11 +71,12 @@ module VidSkim
                      end
       end
     
-      # Returns an array of entries ensuring that their sorted by the low end of
-      # each Range
+      # Returns an array of entries ensuring that their sorted by the low end 
+      # of each Range
       def entries
         @entries.sort!{|a, b| a.range.low <=> b.range.low }
       end
+      
       # Collects each Entry and returns a hash
       def collect
         c = {
@@ -79,6 +89,9 @@ module VidSkim
         entries.each{ |e| c[@name]['entries'] << e.collect }
         c
       end
+      
+      
+      
     
       # Builds a dynamic finder (<tt>unique_entries_by_attribute</tt> where 
       # attribute is an Entry attribute) so that filters returns unique entries 
@@ -99,7 +112,7 @@ module VidSkim
           super
         end
       end
-    
+      
       private
         # Uses a set to build the unique entries returned by method missing
         def unique_entries_by_(key) 

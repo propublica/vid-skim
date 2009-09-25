@@ -10,11 +10,11 @@ autoload :Nokogiri,   'nokogiri'
 autoload :JSON,       'json'
 autoload :ERB,        'erb'
 autoload :FileUtils,  'fileutils'
+autoload :Set,        'set'
 
 module VidSkim
   autoload :Command, 'vid_skim/command'
   autoload :Transcript, "vid_skim/transcript"
-  autoload :Tube, "vid_skim/tube"
-  
+  autoload :Inflector, "vid_skim/inflector"
   ROOT = File.expand_path(File.dirname(__FILE__) + '/..')
 end

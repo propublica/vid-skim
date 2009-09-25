@@ -1,25 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title><%= @transcript.title %>
 	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
   <script type="text/javascript">
     google.load("swfobject", "2.1");
     google.load("jquery", "1");  
     
   </script>
-
-	<%= javascript_include_tag 'application.js', 'equiv.js' %>
-	<%= stylesheet_link_tag 'http://www.propublica.org/css/master3.css', 'http://www.propublica.org/css/watchdog.css', 'application.css'%>
-
+  <script src="javascripts/vid_skim.js" type="text/javascript"></script>
+  <link href="stylesheets/vid_skim.css" media="screen" rel="stylesheet" type="text/css" />
 </head>
 <body>
 
 
-<div id="special-col">
-  <h2 id="title"><%=title @tube.title%></h2>
-  <div id="deck"><p><%= @tube.deck%></p></div>
 
   <div id="vid-tabs">
     <ul>
       <%# This means that divisions can only be one word, no special chars, grrr%>
-    <% @tube.transcript.divisions.each_pair do |x, d| %><li><a href="#" id="tab-<%=d.name%>"><%= d.name %></a></li><% end %>
+    <% @transcript.divisions.each_pair do |x, d| %><li><a href="#" id="tab-<%=d.name%>"><%= d.name %></a></li><% end %>
     </ul>
   </div>
   
@@ -48,26 +48,29 @@
     
   </div>
   <div id="rail">
-    <% @tube.transcript.divisions.each_pair do |x, d|%>
-    <div class="<%= x.parameterize('').downcase %>">
+    <% @transcript.divisions.each_pair do |x, d|%>
+    <div class="<%= Inflector.parameterize(x, '') %>">
     <p><strong><%= x %></strong></p>
     <ul>
       <% d.unique_entries_by_title.each do |e| %>
-        <li><a class="index <%= e.title.parameterize('').downcase %>" href="#<%= e.range.to_seconds(:low) %>" class="index"><%= e.title %></a></li>
+        <li><a class="index <%= Inflector.parameterize(e.title, '') %>" href="#<%= e.range.to_seconds(:low) %>" class="index"><%= e.title %></a></li>
       <% end %>
     </ul>
     </div>
     <%end%>
   </div>
-  <div id="tube_footer"><p><%= @tube.footer %></p></div>
 </div>
 
 
 
 <script type="text/javascript">
+data = <%= @transcript.to_json %>
+
+
+
   var params = { allowScriptAccess: "always" };
   var atts = { id: "ytplayer" };
-  swfobject.embedSWF("http://www.youtube.com/v/<%= @tube.youtube_id %>?enablejsapi=1&playerapiid=myytplayer", 
+  swfobject.embedSWF("http://www.youtube.com/v/<%= @transcript.youtube_id %>?enablejsapi=1&playerapiid=myytplayer", 
                      "ytapiplayer", "375", "305", "8", null, null, params, atts);
   
   
@@ -83,11 +86,7 @@ $.preloadImages(
   });
   var trans = new Transcript('#timeline', '#trans', '#extra', '#vid-nav','#vid-tabs', '#rail', '#viewer', window.location);
   
-  $(document).ready(function (){
-    $.getJSON(trans.baseURL + ".json", function (data, textStatus) { 
-      trans.setData(data, "<%=@tube.default%>");      
-    });
-  });
+
   
   
                      
@@ -98,7 +97,7 @@ $.preloadImages(
     
     trans.seek(trans.hashSeconds);
 
-    trans.setBounds(<%= @tube.duration %>);
+    trans.setBounds(<%= @transcript.duration %>);
     setInterval(updateytplayerInfo, 250);  
     trans.initted = true;
   }

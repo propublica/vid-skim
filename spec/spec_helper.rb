@@ -1,6 +1,6 @@
 # This file is copied to ~/spec when you run 'ruby script/generate rspec'
 # from the project root directory.
-ENV["RAILS_ENV"] ||= 'test'
+ENV["VID_SKIM_ENV"] ||= 'test'
 require 'spec/autorun'
 
 # Requires supporting files with custom matchers and macros, etc,

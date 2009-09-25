@@ -1,3 +1,17 @@
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+  <script type="text/javascript">
+    google.load("swfobject", "2.1");
+    google.load("jquery", "1");  
+    
+  </script>
+
+	<%= javascript_include_tag 'application.js', 'equiv.js' %>
+	<%= stylesheet_link_tag 'http://www.propublica.org/css/master3.css', 'http://www.propublica.org/css/watchdog.css', 'application.css'%>
+
+</head>
+<body>
+
+
 <div id="special-col">
   <h2 id="title"><%=title @tube.title%></h2>
   <div id="deck"><p><%= @tube.deck%></p></div>

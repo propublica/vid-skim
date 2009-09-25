@@ -39,7 +39,8 @@ function defineTranscript($) {
       transcript = this;
       $(this.tab_id + " a#tab-" + key).addClass('active');
       $(this.rail_id + " div").hide();
-      $(this.rail_id + " div." + this.parametize(key)).show();
+      console.log(this.parameterize(key))
+      $(this.rail_id + " div." + this.parameterize(key)).show();
       if (this.initted){ /* for tabs */
         this.buildTimeline();
       } else {
@@ -79,9 +80,8 @@ function defineTranscript($) {
 	    $(this.timeline_id).mousemove(function(e) {
 		    var x_real = e.clientX - $(timeline).offset().left;
 		    var titles = transcript.lookup(Math.floor(x_real*max/$(timeline).width()));
-		    if(!transcript.curr_titles.range[0] || 
-		      titles.range[0] != 
-		      transcript.curr_titles.range[0]) {
+		    if(!titles || !transcript.curr_titles || !transcript.curr_titles[0] || 
+		      titles[0].range[0] != transcript.curr_titles[0].range[0]) {
 		      transcript.curr_titles = titles;
 		      if (transcript.curr_titles[0]) {
 		        $(scrubber_selector).html(transcript.curr_titles[0].title);
@@ -149,7 +149,7 @@ function defineTranscript($) {
       
 		  $.each(this.parsed_data, function (i, val) {
 		    $.each(this.entries, function() {
-		      $(timeline).append('<div class="' + i + ' ' + transcript.parametize(this.title) + ' time_box" style="left:'+ Math.floor(this.range[0]*$(timeline).width()/max) + 'px; width:' + (Math.floor(this.range[1]*$(timeline).width()/max) - Math.floor(this.range[0]*$(timeline).width()/max)) + 'px">&nbsp;</span>');
+		      $(timeline).append('<div class="' + i + ' ' + transcript.parameterize(this.title) + ' time_box" style="left:'+ Math.floor(this.range[0]*$(timeline).width()/max) + 'px; width:' + (Math.floor(this.range[1]*$(timeline).width()/max) - Math.floor(this.range[0]*$(timeline).width()/max)) + 'px">&nbsp;</span>');
           
 		    });
         $('div.' + i).css({
@@ -173,7 +173,7 @@ function defineTranscript($) {
           this.parsed_data[this.current_texts[0].css_class].color  
         })
         $('#timeline .'+
-         this.parametize(this.current_texts[0].title)).css({
+         this.parameterize(this.current_texts[0].title)).css({
           'background-color':
            this.parsed_data[this.current_texts[0].css_class].hover
         });
@@ -181,18 +181,17 @@ function defineTranscript($) {
     },
     
     //convenience method for working with hash keys
-    parametize: function (str) {
-      var t = str;
-      return t.toLowerCase().replace(/\W/g, '')
+    parameterize: function (str) {
+      return str.toLowerCase().replace(/[^a-z0-9\-_\+]+/ig, '');
     },
     
     //rerenders the current view as needed
     draw: function(time){
       if(this.initted){
         var texts = this.lookup(time);
-        if(!transcript.curr_titles.range[0] || 
-		      titles.range[0] != 
-		      transcript.curr_titles.range[0]){ /* transcript */
+        if(!texts || !transcript.curr_titles || !transcript.curr_titles[0] || 
+		      texts[0].range[0] != 
+		      transcript.curr_titles[0].range[0]){ /* transcript */
           this.current_texts = texts;
           var trans_all = "<ul>"; var extra_all = "<ul>";
           if(this.current_texts[0]){
@@ -200,7 +199,7 @@ function defineTranscript($) {
             transcript.highlightSection();
             
             $('a.index').removeClass('active');
-            $('a.index.' + this.parametize(this.current_texts[0].title))
+            $('a.index.' + this.parameterize(this.current_texts[0].title))
               .addClass('active');
             
             

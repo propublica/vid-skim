@@ -5,13 +5,14 @@
 
 module VidSkim
   class Transcript
-    attr_accessor :divisions, :title, :youtube_id, :duration
+    attr_accessor :divisions, :title, :youtube_id, :duration, :default
 
     def initialize(hash)
       @errors = []
       @divisions = {}
       @youtube_id = hash["youtube_id"]
       @title = hash["title"]
+      @default = hash["default"]
       @duration = hash["length"].to_i
       hash["divisions"].each_pair do |key, value|
                         @divisions["#{key}"] = Transcript::Division.new(key)

@@ -82,11 +82,9 @@ $.preloadImages(
 'http://www.propublica.org/images/tubes/next-hover.jpg'
 );
     
-  $.ajaxSetup({
-    async: false
-  });
+
   var trans = new Transcript('#timeline', '#trans', '#extra', '#vid-nav','#vid-tabs', '#rail', '#viewer', window.location);
-  
+  trans.setData(data, "<%= @transcript.default %>")
 
   
   

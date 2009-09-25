@@ -1,7 +1,8 @@
 {  
   "youtube_id":"mXalr9UuNwo",
   "title": "Ron Boline Interview",
-  "length": "6668",
+  "length": "1800",
+  "default": "Transcript",
   "divisions": {
     "Transcript": {
       "color": "#316734",

@@ -94,8 +94,8 @@ module VidSkim
       
     
       # Builds a dynamic finder (<tt>unique_entries_by_attribute</tt> where 
-      # attribute is an Entry attribute) so that filters returns unique entries 
-      # you can do things like:
+      # attribute is an Entry attribute) so that filters returns unique 
+      # entries you can do things like:
       #   >> entries = [{'title'=>'Hamm', 'range'=>["00:00:00", "00:00:00"]},
       #               {'title'=> 'Clove', 'range'=>["00:00:00", "00:00:00"]},
       #               {'title'=>'Hamm', 'range'=>["00:00:00", "00:00:00"]}]

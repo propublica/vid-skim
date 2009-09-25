@@ -79,7 +79,9 @@ function defineTranscript($) {
 	    $(this.timeline_id).mousemove(function(e) {
 		    var x_real = e.clientX - $(timeline).offset().left;
 		    var titles = transcript.lookup(Math.floor(x_real*max/$(timeline).width()));
-		    if(!equiv(titles,transcript.curr_titles)) {
+		    if(!transcript.curr_titles.range[0] || 
+		      titles.range[0] != 
+		      transcript.curr_titles.range[0]) {
 		      transcript.curr_titles = titles;
 		      if (transcript.curr_titles[0]) {
 		        $(scrubber_selector).html(transcript.curr_titles[0].title);
@@ -188,7 +190,9 @@ function defineTranscript($) {
     draw: function(time){
       if(this.initted){
         var texts = this.lookup(time);
-        if(!equiv(texts, this.current_texts)){ /* transcript */
+        if(!transcript.curr_titles.range[0] || 
+		      titles.range[0] != 
+		      transcript.curr_titles.range[0]){ /* transcript */
           this.current_texts = texts;
           var trans_all = "<ul>"; var extra_all = "<ul>";
           if(this.current_texts[0]){

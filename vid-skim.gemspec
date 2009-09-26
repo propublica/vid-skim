@@ -36,10 +36,12 @@ Gem::Specification.new do |s|
     template/html/images/prev-hover.jpg
     template/html/images/prev.jpg
     template/html/javascripts/vid_skim.js
-    template/html/stylesheets/vid-skim.css
+    template/html/stylesheets/vid_skim.css
     template/videos/example.json
     lib/vid_skim/command.rb
     lib/vid_skim/transcript.rb
+    lib/vid_skim/parser.rb
+    lib/vid_skim/compiler.rb
     lib/vid_skim/inflector.rb
     lib/vid_skim.rb
     vid-skim.gemspec

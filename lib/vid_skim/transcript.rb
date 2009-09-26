@@ -1,27 +1,29 @@
-
 # Transcript is a json parser/updater which parses a Video Skimmer formatted
-# json file. Like Tube it is important that schema.json (a kwalify schema) 
-# is kept in sync with this object.  
+# json file.
 
 module VidSkim
+  
   class Transcript
     attr_accessor :divisions, :title, :youtube_id, :duration, :default
 
     def initialize(hash)
-      @errors = []
       @divisions = {}
       @youtube_id = hash["youtube_id"]
       @title = hash["title"]
       @default = hash["default"]
       @duration = hash["length"].to_i
-      hash["divisions"].each_pair do |key, value|
+      @divisions = hash["divisions"]
+    end
+    
+    # Set each division from a hash of divisions
+    def divisions=(hash)
+      hash.each_pair do |key, value|
                         @divisions["#{key}"] = Transcript::Division.new(key)
                         value.each_pair do |method, value|    
                           @divisions["#{key}"].send("#{method}=", value) 
                         end
                      end
     end
-    
     # Returns the json representation
     def to_json
       self.to_hash.to_json
@@ -144,8 +146,6 @@ module VidSkim
           "title"=> @title,
           "range"=> @range.collect,
           "transcript"=> @transcript,
-          "extra"=> @extra,
-          "annotation" => @annotation
         }
       end
     

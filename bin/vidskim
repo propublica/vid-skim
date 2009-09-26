@@ -2,4 +2,4 @@
 
 require File.dirname(__FILE__ ) + "/../lib/vid_skim"
 
-VidSkim::Command.new.run
+VidSkim::Command.new

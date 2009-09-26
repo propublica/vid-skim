@@ -5,12 +5,13 @@ require 'rubygems'
 gem 'nokogiri'
 gem 'json'
 
-autoload :YAML,       'yaml'
-autoload :Nokogiri,   'nokogiri'
-autoload :JSON,       'json'
-autoload :ERB,        'erb'
-autoload :FileUtils,  'fileutils'
-autoload :Set,        'set'
+autoload :YAML,         'yaml'
+autoload :Nokogiri,     'nokogiri'
+autoload :JSON,         'json'
+autoload :ERB,          'erb'
+autoload :FileUtils,    'fileutils'
+autoload :Set,          'set'
+autoload :OptionParser, 'optparse'
 
 
 module VidSkim

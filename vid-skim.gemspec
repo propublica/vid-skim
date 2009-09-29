@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
                          '--all'
   
   s.add_dependency 'json',          ['>= 1.1.7']
-  s.add_dependency 'nokogiri',      ['>= 1.3.3']
+  s.add_dependency 'edl',           ['']
 
   if s.respond_to?(:add_development_dependency)
     s.add_development_dependency 'rspec', ['>= 1.2.8']

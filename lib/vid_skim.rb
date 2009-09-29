@@ -4,8 +4,6 @@ require 'rubygems'
 gem 'nokogiri'
 gem 'json'
 
-autoload :YAML,         'yaml'
-autoload :Nokogiri,     'nokogiri'
 autoload :JSON,         'json'
 autoload :ERB,          'erb'
 autoload :FileUtils,    'fileutils'
@@ -27,6 +25,8 @@ module VidSkim
   class << self
     attr_reader :working_path, :build_path, :output_path
     
+    
+    # Set the paths for each of the directories VidSkim works with.
     def configure(working_path)
       @working_path = working_path
       @build_path = working_path + '/videos/'

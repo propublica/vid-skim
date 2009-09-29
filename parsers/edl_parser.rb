@@ -1,6 +1,6 @@
 require 'rubygems'
-gem "vid-skim"
-#require "edl"
+gem 'vid-skim'
+gem 'edl'
 
 class EdlParser < VidSkim::Parser
   

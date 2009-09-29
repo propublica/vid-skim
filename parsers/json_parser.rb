@@ -1,6 +1,6 @@
 require 'rubygems'
 gem "vid-skim"
-#require "edl"
+require "edl"
 
 class JsonParser < VidSkim::Parser
   

@@ -5,7 +5,7 @@ describe Command do
   it "be able to install Video Skimmer to a location of your choosing" do
     dir = 'tmp/install_dir'
     ARGV.replace ['install', dir]
-    Command.new.run
+    Command.new
     File.exists?(dir).should == true
     File.directory?(dir).should == true
     File.directory?("#{dir}/videos").should == true

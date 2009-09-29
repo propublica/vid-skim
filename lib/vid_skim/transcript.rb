@@ -12,21 +12,23 @@ module VidSkim
       @title = hash["title"]
       @default = hash["default"]
       @duration = hash["length"].to_i
-      @divisions = hash["divisions"]
+      send("divisions=", hash["divisions"]) if hash["divisions"]
     end
     
     # Set each division from a hash of divisions
     def divisions=(hash)
-      hash.each_pair do |key, value|
-                        @divisions["#{key}"] = Transcript::Division.new(key)
-                        value.each_pair do |method, value|    
-                          @divisions["#{key}"].send("#{method}=", value) 
-                        end
-                     end
+       hash.each_pair do |key, value|
+                          @divisions["#{key}"] = Transcript::Division.new(key)
+                          value.each_pair do |method, value|
+                            @divisions["#{key}"].send("#{method}=", value) 
+                          end
+                       end 
+       
     end
+    
     # Returns the json representation
     def to_json
-      self.to_hash.to_json
+      to_hash.to_json
     end
     
     # Returns the hash representation
@@ -59,7 +61,7 @@ module VidSkim
 
       attr_accessor :name, :color, :hover
       def initialize(name)
-        @name = name
+        @name = name || ""
         @entries = []
       end
     
@@ -129,7 +131,7 @@ module VidSkim
     end
     # An Transcript::Entry is an individual section of video 
     class Entry
-      attr_accessor :title, :range, :transcript, :extra
+      attr_accessor :title, :range, :transcript
     
       def initialize()
       end
@@ -157,17 +159,17 @@ module VidSkim
           @range_low = range.first
           @range_high = range.last
         end
-        # Return the low end of the Transcript::Division::Entry::Range
+        # Return the low end of the Transcript::Entry::Range
         def low
           @range_low
         end
       
-        # Return the high end of the Transcript::Division::Entry::Range
+        # Return the high end of the Transcript::Entry::Range
         def high
           @range_high
         end
       
-        # Converts a Transcript::Division::Entry::Range into seconds, the
+        # Convert a Transcript::Entry::Range into seconds, the
         # argument can either be :low or :high
         def to_seconds(sym)
           seconds = 0
@@ -176,8 +178,8 @@ module VidSkim
           end
           seconds
         end
-      
-        # Returns the original array representation of this object
+
+        # Return the original array representation of this object
         def collect
           [@range_low, @range_high]
         end

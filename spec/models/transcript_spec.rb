@@ -2,7 +2,7 @@ require 'spec/spec_helper'
 
 describe Transcript do
   before(:each) do
-    @data = JSON.parse(File.read("spec/fixtures/transcript.json"))
+    @data = JSON.parse(File.read("template/videos/example.json"))
     @t = Transcript.new(@data)
   end
 

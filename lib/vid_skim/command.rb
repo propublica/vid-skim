@@ -11,15 +11,7 @@ Usage: vidskim COMMAND path/to/directory OPTIONS
 Commands:
   install     Install the VidSkim configuration to the specified directory
   build       Build all videos in a VidSkim directory into HTML pages
-  parse       Parse a file using a parser into the VidSkim directory
-  compile     Compiles and builds each json file from an expanded format
   
-  parse path/to/directory -f <input_file> -p <parser_name>  
-      Parse an <input_file> using the parser in <parser_name>
-      
-      Example: vid-skim parse ./vids -f edit.edl -p edl_parser will parse an    
-               EDL file using the edl_parser
-               
   Options:
     EOS
     
@@ -33,8 +25,7 @@ Commands:
       case @command
         when 'install' then run_install
         when 'build'   then run_build
-        when 'parse'   then run_parse
-        when 'compile' then run_compile
+
         else                usage
       end
     end
@@ -79,25 +70,7 @@ Commands:
       end
     end
     
-    # Runs a parser to build the files in the videos directory. 
-    def run_parse
-      raise Error.new("To run a parser you must use both the -p and -f flags.") if !@options[:parser_name] && !@options[:parser_file]
-      VidSkim.configure(@directory)
-      parser = VidSkim.parsers[@options[:parser_name]].new(@options[:parser_file])
-      parser.parse.each do |f|
-        create_file(f["dest"], f["str"])
-      end
-    end
-    
-    # Runs the compiler to compile and build the files in each directory 
-    # created by a parser or by hand
-    def run_compile
-      Dir.glob(@directory + "/**/").each do |d|
-        compiler = VidSkim::Compiler.new(d)
-        create_file(@directory + compiler.file_name, compiler.compile)
-      end
-      run_build
-    end
+
     
     # Print out `vidskim` usage.
     def usage

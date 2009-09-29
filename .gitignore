@@ -1,3 +1,4 @@
 *.gem
 */.svn
 build
+tmp

@@ -18,8 +18,7 @@ module VidSkim
   autoload :Command, 'vid_skim/command'
   autoload :Transcript, "vid_skim/transcript"
   autoload :Inflector, "vid_skim/inflector"
-  autoload :Compiler, "vid_skim/compiler"
-  autoload :Parser, "vid_skim/parser"
+
   
   ROOT = File.expand_path(File.dirname(__FILE__) + '/..')
   

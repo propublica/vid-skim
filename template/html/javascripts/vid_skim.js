@@ -125,7 +125,6 @@ function defineTranscript($) {
 		              val.color +  "\">&nbsp;</span>&nbsp;"); 
 		  });
 		  $(this.tab_id + ' a').click(function (e){
-		    console.log($(this).attr('class').replace("tab-", ''))
         if(transcript.current_tab !== $(this).attr('class').replace("tab-", '')){
           transcript.current_tab = $(this).attr('class').replace("tab-", '');
           $(transcript.tab_id + " a").removeClass('active');

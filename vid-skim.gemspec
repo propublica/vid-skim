@@ -6,7 +6,8 @@ Gem::Specification.new do |s|
   s.homepage    = "http://propublica.org"
   s.summary     = "Annotate videos with transcripts and editors' notes"
   s.description = <<-EOS
-    to be determined...
+    
+  
   EOS
   
   s.authors           = ['Jeff Larson']
@@ -19,7 +20,7 @@ Gem::Specification.new do |s|
   s.has_rdoc          = true
   s.extra_rdoc_files  = ['README']
   s.rdoc_options      << '--title'    << 'VidSkim' <<
-                         '--exclude'  << 'test' <<
+                         '--exclude'  << 'spec' <<
                          '--main'     << 'README' <<
                          '--all'
   
@@ -40,6 +41,7 @@ Gem::Specification.new do |s|
     template/videos/example.json
     lib/vid_skim/command.rb
     lib/vid_skim/transcript.rb
+    lib/vid_skim/files.rb
     lib/vid_skim/parser.rb
     lib/vid_skim/compiler.rb
     lib/vid_skim/inflector.rb

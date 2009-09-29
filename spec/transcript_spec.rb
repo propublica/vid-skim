@@ -34,13 +34,12 @@ describe Transcript do
   end
   
   it "should return the same hash as was put in" do
-    transcript_entry_count = @t.to_hash['Transcript']['entries'].length
+    transcript_entry_count = @t.to_hash["divisions"]['Transcript']['entries'].length
     data_entry_count = @data["divisions"]["Transcript"]["entries"].length
     transcript_entry_count.should == data_entry_count
   end
   
   it "should be reversible" do
-    @data['t'] ='test'
     @data == @t.to_hash
   end
   

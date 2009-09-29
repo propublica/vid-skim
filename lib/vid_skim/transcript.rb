@@ -38,7 +38,8 @@ module VidSkim
       c["title"] = @title
       c["default"] = @default
       c["duration"] = @duration
-      @divisions.each_pair{|d,v| c.merge!(v.collect)}
+      c["divisions"] = {}
+      @divisions.each_pair{|d,v| c["divisions"].merge!(v.collect)}
       c
     end 
   
@@ -143,7 +144,7 @@ module VidSkim
       # Sets a Transcript::Entry::Range object based on a +range+ of the format
       # ['hh:mm:ss', 'hh:mm:ss'].
       def range=(range)
-        @range = Transcript::Entry::Range.new(range)
+        @range = Range.new(range)
       end
     
       # Returns the original hash representation of this object
@@ -158,7 +159,7 @@ module VidSkim
       # A Transcript::Entry::Range parses a timecode.
       class Range
 
-        # +range+ sould be of the format ['hh:mm:ss', 'hh:mm:ss']
+        # +range+ should be of the format ['hh:mm:ss', 'hh:mm:ss']
         def initialize(range)
           @range_low = range.first
           @range_high = range.last

@@ -98,7 +98,6 @@ Commands:
     def run_compile
       compiler = VidSkim::Compiler.new
       compiler.compile
-      run_build
     end
     
     # Print out `vidskim` usage.

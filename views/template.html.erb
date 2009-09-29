@@ -16,47 +16,44 @@
 <body>
 
 
+<div id="vid-skim">
+  <div class="vid-tabs">
 
-  <div id="vid-tabs">
-    <ul>
       <%# This means that divisions can only be one word, no special chars, grrr%>
-    <% @transcript.divisions.each_pair do |x, d| %><li><a href="#" id="tab-<%=d.name%>"><%= d.name %></a></li><% end %>
-    </ul>
+    <% @transcript.divisions.each_pair do |x, d| %><div><a href="#" class="tab-<%=d.name%>"><%= d.name %></a></div><% end %>
+
   </div>
   
-  <div id="viewer" class="clearfix">
+  <div class="viewer clearfix">
 
-  	<div id="timeline">
+  	<div class="timeline">
   	  <div class="scrubber"></div>
   	  <div class="position"></div>    
     </div>
-    <div id="vid-nav">
+    <div class="vid-nav">
       <%["Next", "Previous"].each do |i| %>
         <a href="" class="<%= i.downcase %>"><%= i%></a>
       <%end%>
     </div>
     
 
-    <div id="player_container">
-      <div id="ytapiplayer">
+    <div class="player_container">
+      <div id="vid-skim-player">
         You need Flash player 8+ and JavaScript enabled to view this video.
       </div>
     </div>
-    <div id="trans">
-      <div id="extra"></div>
+    <div class="trans">
+      <div class="extra"></div>
     </div>
-    <div id="annotation"></div>
     
   </div>
-  <div id="rail">
+  <div class="rail">
     <% @transcript.divisions.each_pair do |x, d|%>
     <div class="<%= Inflector.parameterize(x, '') %>">
-    <p><strong><%= x %></strong></p>
-    <ul>
+      <div><strong><%= x %></strong></div>
       <% d.unique_entries_by_title.each do |e| %>
-        <li><a class="index <%= Inflector.parameterize(e.title, '') %>" href="#<%= e.range.to_seconds(:low) %>" class="index"><%= e.title %></a></li>
+          <div><a class="index <%= Inflector.parameterize(e.title, '') %>" href="#<%= e.range.to_seconds(:low) %>" class="index"><%= e.title %></a></div>
       <% end %>
-    </ul>
     </div>
     <%end%>
   </div>
@@ -72,18 +69,18 @@ data = <%= @transcript.to_json %>
   var params = { allowScriptAccess: "always" };
   var atts = { id: "ytplayer" };
   swfobject.embedSWF("http://www.youtube.com/v/<%= @transcript.youtube_id %>?enablejsapi=1&playerapiid=myytplayer", 
-                     "ytapiplayer", "375", "305", "8", null, null, params, atts);
+                     "vid-skim-player", "375", "305", "8", null, null, params, atts);
   
   
 $.preloadImages(
-'http://www.propublica.org/images/tubes/prev.jpg',
-'http://www.propublica.org/images/tubes/next.jpg',
-'http://www.propublica.org/images/tubes/prev-hover.jpg',
-'http://www.propublica.org/images/tubes/next-hover.jpg'
+'images/prev.jpg',
+'images/next.jpg',
+'images/prev-hover.jpg',
+'images/next-hover.jpg'
 );
     
 
-  var trans = new Transcript('#timeline', '#trans', '#extra', '#vid-nav','#vid-tabs', '#rail', '#viewer', window.location);
+  var trans = new Transcript('#vid-skim .timeline', '#vid-skim .trans', '#vid-skim .extra', '#vid-skim .vid-nav','#vid-skim .vid-tabs', '#vid-skim .rail', '#vid-skim .viewer', window.location);
   trans.setData(data, "<%= @transcript.default %>")
 
   
@@ -93,9 +90,7 @@ $.preloadImages(
   
     var ytplayer = document.getElementById('ytplayer'); // wow, ie6 I hate you.    
     trans.setPlayer(ytplayer);
-    
     trans.seek(trans.hashSeconds);
-
     trans.setBounds(<%= @transcript.duration %>);
     setInterval(updateytplayerInfo, 250);  
     trans.initted = true;

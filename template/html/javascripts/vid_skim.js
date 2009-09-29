@@ -1,12 +1,11 @@
 /*
 ###### Preloader
 */
-jQuery.preloadImages = function()
-{
+jQuery.preloadImages = function(){
   $.each(arguments, function (){
     jQuery("<img>").attr("src", this);
   });
-}
+};
 
 /*
 ###### Transcript
@@ -33,18 +32,19 @@ function defineTranscript($) {
     // central dispatch for data setting and view switching
     setData: function(raw_data, key) {
       this.raw_data = raw_data || this.raw_data;
-      var temp = {}
-      temp[key] = this.raw_data[key];
+      var temp = {};
+      temp[key] = this.raw_data.divisions[key];
       this.parsed_data = temp;      
       transcript = this;
-      $(this.tab_id + " a#tab-" + key).addClass('active');
+      $(this.tab_id + " a.tab-" + key).addClass('active');
       $(this.rail_id + " div").hide();
-      console.log(this.parameterize(key))
       $(this.rail_id + " div." + this.parameterize(key)).show();
+      $(this.rail_id + " div." + this.parameterize(key)).children().show();
+
       if (this.initted){ /* for tabs */
         this.buildTimeline();
       } else {
-        $.each(this.raw_data, function(){
+        $.each(this.parsed_data, function(){
           $.each(this.entries, function() {
             this.range[0] = transcript.timeCodeParse(this.range[0]);
             this.range[1] = transcript.timeCodeParse(this.range[1]);
@@ -93,6 +93,7 @@ function defineTranscript($) {
 		      $(scrubber_selector).css({'left': x_real-5});
 		    }
 		  });
+		  
 		  $(this.timeline_id).click(function(e){
 		    var x_real = e.clientX - $(timeline).offset().left;
 		    var seconds = Math.floor(x_real*max/$(timeline).width());
@@ -100,6 +101,7 @@ function defineTranscript($) {
 		              transcript.lookup(seconds)[0].range[0] : seconds;
 		    transcript.seek(seconds);
 		  });
+		  
 		  $(this.timeline_id).mouseleave(function(){
 		    $(scrubber_selector).hide();
 		  });
@@ -116,23 +118,24 @@ function defineTranscript($) {
 		    transcript.seek(parseInt($(this).attr('href').replace('#', ''), 10));
 		    return false;
 		  });
-		  $.each(this.raw_data, function(i, val){
-		    $(transcript.tab_id + ' a#tab-' + i).
-		    prepend("<span class=\"color\" style=\"border-color:" + 
+		  $.each(this.raw_data.divisions, function(i, val){
+		    $(transcript.tab_id + ' a.tab-' + i).
+		      prepend("<span class=\"color\" style=\"border-color:" + 
 		              val.color + "; background-color:" +
-		              val.color +  "\">&nbsp;</span>&nbsp;") 
+		              val.color +  "\">&nbsp;</span>&nbsp;"); 
 		  });
 		  $(this.tab_id + ' a').click(function (e){
-        if(transcript.current_tab != $(this).attr('id').replace("tab-", '')){
-          transcript.current_tab = $(this).attr('id').replace("tab-", '');
+		    console.log($(this).attr('class').replace("tab-", ''))
+        if(transcript.current_tab !== $(this).attr('class').replace("tab-", '')){
+          transcript.current_tab = $(this).attr('class').replace("tab-", '');
           $(transcript.tab_id + " a").removeClass('active');
-          transcript.setData(null, $(this).attr('id').replace("tab-", ''));
+          transcript.setData(null, $(this).attr('class').replace("tab-", ''));
         }
         return false;
       });
       
 		  /*height calculations*/
-		  var height = $(this.rail_id).height()-60;
+		  var height = $(this.rail_id).height()-50;
 		  $(this.viewer_id).css({'height':height+'px'});
 		  $(this.trans_id).css({'height':height-60+'px'});
 		  
@@ -152,10 +155,10 @@ function defineTranscript($) {
 		      $(timeline).append('<div class="' + i + ' ' + transcript.parameterize(this.title) + ' time_box" style="left:'+ Math.floor(this.range[0]*$(timeline).width()/max) + 'px; width:' + (Math.floor(this.range[1]*$(timeline).width()/max) - Math.floor(this.range[0]*$(timeline).width()/max)) + 'px">&nbsp;</span>');
           
 		    });
-        $('div.' + i).css({
+        $(timeline + " ." + i).css({
           'background-color': val.color
         });
-        $('div.' + i).hover(function(){
+        $(timeline + " ." + i).hover(function(){
           transcript.highlightSection();
           $(this).css({'background-color':val.hover});
         }, function(){
@@ -168,11 +171,11 @@ function defineTranscript($) {
     //highlights the current section on the timeline
     highlightSection: function(){
       if(this.current_texts[0]) {
-        $('#timeline .time_box').css({
+        $(this.timeline_id + ' .time_box').css({
           'background-color':
           this.parsed_data[this.current_texts[0].css_class].color  
-        })
-        $('#timeline .'+
+        });
+        $(this.timeline_id + ' .'+
          this.parameterize(this.current_texts[0].title)).css({
           'background-color':
            this.parsed_data[this.current_texts[0].css_class].hover
@@ -190,10 +193,10 @@ function defineTranscript($) {
       if(this.initted){
         var texts = this.lookup(time);
         if(!texts || !transcript.curr_titles || !transcript.curr_titles[0] || 
-		      texts[0].range[0] != 
-		      transcript.curr_titles[0].range[0]){ /* transcript */
+		        texts[0].range[0] != 
+		        transcript.curr_titles[0].range[0]){ /* transcript */
           this.current_texts = texts;
-          var trans_all = "<ul>"; var extra_all = "<ul>";
+          var trans_all = "";
           if(this.current_texts[0]){
             /* index highlighting */
             transcript.highlightSection();
@@ -205,13 +208,11 @@ function defineTranscript($) {
             
             /* transcript building */
             $.each(this.current_texts, function(){
-              trans_all = trans_all + '<li class="trans ' + this.css_class + '">' + this.transcript + "</li>";
-              if (this.extra){
-                extra_all = extra_all + '<li class="extra ' + this.css_class + '">' + this.extra + "</li>";
-              } 
+              trans_all = trans_all + '<div class="' + this.css_class + '">' + this.transcript + "</div>";
+             
             });
 
-            $(this.trans_id).html(extra_all + "</ul>" + trans_all + "</ul>");
+            $(this.trans_id).html(trans_all);
           } else {
             
             $(this.trans_id).html('');
@@ -249,7 +250,7 @@ function defineTranscript($) {
     //the brains of the operation, a binary search that can handle arbitrary ranges of data, returns the next and previous items if asked nicely
     lookup: function(time, nearest){
       var ret = [];
-      var nearest = nearest || false;
+      nearest = nearest || false;
       $.each(this.parsed_data, function(i,val){
         var start = 0;
         var end = this.entries.length;
@@ -265,12 +266,12 @@ function defineTranscript($) {
            var before = this.entries[start-1];
            var after = this.entries[start+1];
            var found = this.entries[start];
-           var first = this.entries[0]
+           var first = this.entries[0];
            var last = this.entries[this.entries.length-1];
            
            if(this.entries[start] && this.entries[start].range[0] <= time && this.entries[start].range[1] >= time){ // case 1: in a clip
              ret.push([before, after]);
-           } else if(start == 0) { // case 3: before any clips
+           } else if(start === 0) { // case 3: before any clips
              ret.push([first, first]);
            } else if(this.entries[start] && this.entries[start-1].range[1] < time && this.entries[start].range[0] > time) { // case 2: in between clips
              ret.push([before, found]);

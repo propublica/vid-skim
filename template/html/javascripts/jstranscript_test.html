@@ -8,29 +8,28 @@
     </script>
       <link rel="stylesheet" href="http://jqueryjs.googlecode.com/svn/trunk/qunit/testsuite.css" type="text/css" media="screen" />
   	
-    <script src="application.js" type="text/javascript"></script>
-    <script src="equiv.js" type="text/javascript"></script>
+    <script src="vid_skim.js" type="text/javascript"></script>
     
     <title></title>
     <script>
     data = {
-      "ib": {
-        "color": "#316734",
-        "color": "#316734",
-        "entries": [
-          {
-            "title": "Purchases",
-            "range": ["00:01:17", "00:01:55"], 
-            "transcript":"fsdffs ",
-            "extra": ""
-          },
-          {
-            "title": "Purchases2",
-            "range": ["00:01:55", "00:02:30"], 
-            "transcript":"hgkl ",
-            "extra": ""
-          }
-        ]
+      "divisions":{
+        "ib": {
+          "color": "#316734",
+          "color": "#316734",
+          "entries": [
+            {
+              "title": "Purchases",
+              "range": ["00:01:17", "00:01:55"], 
+              "transcript":"fsdffs ",
+            },
+            {
+              "title": "Purchases2",
+              "range": ["00:01:55", "00:02:30"], 
+              "transcript":"hgkl ",
+            }
+          ]
+        }
       }
     }
     </script>
@@ -41,7 +40,7 @@
                      "ytapiplayer", "1", "1", "8", null, null, params, atts);
   var trans = new Transcript('#timeline', '#trans', '#extra', '#vid-nav','#vid-tabs', '#rail', '#viewer', window.location);
    
-    trans.setData(data);                 
+    trans.setData(data, "ib");                 
 
 
     
@@ -58,6 +57,7 @@
        trans.setBounds(176);
        setInterval(updateytplayerInfo, 250);  
        trans.initted = true;
+       test_yt();
      }
 
 
@@ -68,14 +68,13 @@
     
     
     function test_yt () {
-
       test("test parsing data", function() {
-        equals(77, data.ib.entries[0].range[0], "");
+        equals(77, data.divisions.ib.entries[0].range[0], "");
       });
       test("seeking the player", function() {
         trans.seek(84);
         trans.stop;
-        equals(84, ytplayer.getCurrentTime());
+        equals(84, trans.player.getCurrentTime());
       });
       test("looking up seconds from the data",function() {
         equals(trans.lookup(80)[0].title, "Purchases");

@@ -1,8 +1,30 @@
-#viewer #trans ul {
-  margin-bottom:0;
-  list-style-type: none;
+#vid-skim, #vid-skim div, #vid-skim span,  #vid-skim p,
+#vid-skim a, #vid-skim strong {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+	font-size: 11px;
+  font-family: Helvetica, Arial, Sans-serif;
 }
-#viewer {
+
+#vid-skim p{
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+#vid-skim a:link, #vid-skim a:visited {
+  background-color:transparent;
+  color:#143D8D;
+  text-decoration:none;
+}
+
+
+
+#vid-skim div.viewer {
   padding: 20px;
   border: 5px solid #e4e4e4;
   width: 775px;
@@ -13,7 +35,7 @@
   position: relative;
   float:left;
 }
-#timeline {
+#vid-skim div.timeline {
   width:82%; 
   height:32px; 
   background-color:#DCDED2; 
@@ -21,11 +43,10 @@
   margin-bottom: 1em;
 }
 
-#timeline div.scrubber {
+#vid-skim div.timeline div.scrubber {
   color: #222; 
   font-family: sans-serif; 
   padding:.2em .1em .1em .1em; 
-  /*height:12px; */
   font-size: 12px; 
   width: 300px;
   position:absolute; 
@@ -34,7 +55,7 @@
   display:none;
   z-index:200;
 }
-#timeline div.position {
+#vid-skim div.timeline div.position {
   border-left:3px solid #fff; 
   height:100%; 
   width:2px; 
@@ -43,14 +64,14 @@
   left:0; 
   z-index:100
 }
-#timeline div.time_box{
+#vid-skim div.timeline div.time_box{
   height:100%; 
   position:absolute;
   display:block;
   top:0; 
   left:0;
 }
-#vid-nav{
+#vid-skim div.vid-nav{
   width: 18%;
   height:32px;
   margin-bottom: 5px;
@@ -58,7 +79,7 @@
   top:20px;
   right:20px;
 }
-#vid-nav a{
+#vid-skim div.vid-nav a {
   width: 65px;
   height: 32px;
   text-indent: -9999px;
@@ -67,82 +88,65 @@
   padding: 3px 0 0 3px;
 }
 
-#vid-nav a.previous{
-  background: transparent url('http://www.propublica.org/images/tubes/prev.jpg') no-repeat;
+#vid-skim div.vid-nav a.previous{
+  background: transparent url('../images/prev.jpg') no-repeat;
 }
-#vid-nav a.next{
-  background: transparent url('http://www.propublica.org/images/tubes/next.jpg') no-repeat;
-}
-
-#vid-nav a.previous:hover{
-  background: transparent url('http://www.propublica.org/images/tubes/prev-hover.jpg') no-repeat;
-}
-#vid-nav a.next:hover{
-  background: transparent url('http://www.propublica.org/images/tubes/next-hover.jpg') no-repeat;
+#vid-skim div.vid-nav a.next{
+  background: transparent url('../images/next.jpg') no-repeat;
 }
 
-#trans{
+#vid-skim div.vid-nav a.previous:hover{
+  background: transparent url('../images/prev-hover.jpg') no-repeat;
+}
+#vid-skim div.vid-nav a.next:hover{
+  background: transparent url('../images/next-hover.jpg') no-repeat;
+}
+
+#vid-skim div.trans{
   float: right;
-  /*border: 1px solid #aaa;*/
+  /*border: 1px solid div.aaa;*/
   width: 375px;
   height: 300px;
   margin: 0 5px 5px 5px;
-  padding: .5em;
+  padding: 5px;
   overflow: auto;
 }
-#trans .extra{
-  float:right;
-  margin: 0 0 1em 1em;
-  font-weight:bold;
-  font-size: .9em;
-  line-height:1.1em;
-  width:200px;
-}
-#annotation div{
-  width: 365px;
-  float: left;
-  clear: both;
-  padding:px;
-  font-size:11px;
-  border: 1px solid #ccc;
-  margin-bottom: .5em;
-}
-#annotation div p{
-  margin-bottom: 0px;
-}
-#player_container {
+
+
+#vid-skim div.player_container {
   float:left;
   padding-top:5px; 
 }
-#rail {
+#vid-skim div.rail {
   float: left;
   width: 143px;
 }
-#rail li a, #rail p, #vid-tabs li a {
+#vid-skim div.rail a, div.rail p, div.vid-tabs a {
   font-size:11px;
   display: block;
   font-weight: bold;
   padding: .5em;
   line-height: 1.1em;
 }
-#rail li a:hover, #rail li a.active, #vid-tabs li a:hover, #vid-tabs li a.active {
+#vid-skim div.rail div a:hover, #vid-skim div.rail div a.active, #vid-skim div.vid-tabs div a:hover, #vid-skim div.vid-tabs div a.active {
   background-color: #e4e4e4;
 }
 
-#vid-tabs li{
+#vid-skim div.vid-tabs div{
   display: inline;
   margin: none;
 }
 
-#vid-tabs li a {
+#vid-skim div.vid-tabs div a {
   display: inline;
   padding-bottom: none;
   border: 2px solid #e4e4e4;
+  padding: 5px;
 }
-#vid-tabs ul{
-  margin-bottom: .3em;
+#vid-skim div.vid-tabs div{
+  margin-bottom: 3px;
 }
-#vid-tabs .color{
+#vid-skim div.vid-tabs .color{
   font-size: 1px;
   border: 6px solid #000;
   margin-right: .3em;
@@ -150,17 +154,13 @@
   position:relative;
   bottom: 4px;
 }
-#rail p {
+#vid-skim div.rail p {
   margin-bottom: 0;
   padding-top:0;
   padding-bottom: 0;
 }
-#tube_footer {
-  width:100%;
-  clear:both;
-}
 
-.clearfix:after {
+#vid-skim .clearfix:after {
     content: ".";
     display: block;
     height: 0;

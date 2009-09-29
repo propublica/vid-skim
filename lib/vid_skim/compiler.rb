@@ -12,7 +12,7 @@ module VidSkim
       @division_t = ERB.new <<-EOS
 <%= division.name || "DIVISION NAME" %>
 <%= division.color || "COLOR IN #XXXXXX FORMAT" %>
-<%= division.hover || "HOLOR COLOR IN #XXXXXX FORMAT" %>
+<%= division.hover || "HOVER COLOR IN #XXXXXX FORMAT" %>
       EOS
       @entry_t = ERB.new <<-EOS
 <%= division.name %>

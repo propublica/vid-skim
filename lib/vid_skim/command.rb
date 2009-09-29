@@ -40,17 +40,15 @@ Commands:
       end
     end
     
-    def configure
-      VidSkim.configure(@directory)
-    end
+   
     
     def parse_options
       @option_parser = OptionParser.new do |opts|
-        opts.on('-p', '--parser NAME', 'name of parser') do |parser_name|
+        opts.on('-p', '--parser NAME', 'Name of parser') do |parser_name|
           @options[:parser_name] = parser_name
         end
         
-        opts.on('-f', '--file FILE', 'input file to parse') do |parser_file|
+        opts.on('-f', '--file FILE', 'Input file to parse') do |parser_file|
           @options[:parser_file] = parser_file
         end
         
@@ -58,11 +56,12 @@ Commands:
           Files.force = true
         end
         
-        opts.on_tail('-v', '--version', 'show version') do
+        opts.on_tail('-v', '--version', 'Show version') do
           puts "VidSkim version #{VERSION}"
           exit
         end
       end
+      @option_parser.banner = BANNER
       @option_parser.parse!(ARGV)
     end
     
@@ -80,14 +79,15 @@ Commands:
                                 '/views/template.html.erb', 'r').read)
         @transcript = Transcript.find(f)
         str = template.result(binding)
-        Files.create_file(@directory + "/html/#{@transcript.slug}.html", str)
+        Files.create_file(VidSkim.output_path + "#{@transcript.slug}.html", str)
       end
     end
     
     # Runs a parser to build the files in the videos directory.  Allow an escape hatch if the   
     # directory exists
     def run_parse
-      raise Error.new("To run a parser you must use both the -p and -f flags.") if !@options[:parser_name] && !@options[:parser_file]
+      raise Error.new("To run a parser you must use both the -p and -f flags.") if
+              !@options[:parser_name] && !@options[:parser_file]
       parser = VidSkim.parsers[@options[:parser_name]].new
       parser.load(@options[:parser_file])
       parser.parse
@@ -102,11 +102,15 @@ Commands:
     
     # Print out `vidskim` usage.
     def usage
-      puts "\n#{BANNER}"
+      puts "\n#{@option_parser}\n"
     end
     
     
-    
+    private
+    # Make sure that everyone knows where to put any files they generate
+    def configure
+      VidSkim.configure(@directory)
+    end
     
       
   end

@@ -40,7 +40,8 @@ describe Transcript do
   end
   
   it "should be reversible" do
-    JSON.parse(@t.to_hash.to_json).should == @t.to_hash
+    @data['t'] ='test'
+    @data == @t.to_hash
   end
   
 end

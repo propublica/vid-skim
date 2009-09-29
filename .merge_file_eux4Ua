@@ -41,7 +41,7 @@ Commands:
     end
     
     def configure
-      VidSkim.configure(@directory)
+      @directory = VidSkim.configure(@directory)
     end
     
     def parse_options
@@ -68,9 +68,9 @@ Commands:
     
     # Install the example VidSkim folder to a location of your choosing.
     def run_install
-      FileUtils.mkdir_p(VidSkim.working_path) unless File.exists?(VidSkim.working_path)
-      Files.install_dir "#{VidSkim::ROOT}/template/html",   "#{VidSkim.output_path}"
-      Files.install_dir "#{VidSkim::ROOT}/template/videos", "#{VidSkim.build_path}"
+      FileUtils.mkdir_p(@directory) unless File.exists?(@directory)
+      Files.install_dir "#{VidSkim::ROOT}/template/html",   "#{@directory}/html"
+      Files.install_dir "#{VidSkim::ROOT}/template/videos", "#{@directory}/videos"
     end
     
     # Build the html files from the json in the videos directory.

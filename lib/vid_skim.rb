@@ -25,10 +25,12 @@ module VidSkim
   
   
   class << self
-    attr_reader :working_path
+    attr_reader :working_path, :build_path, :output_path
     
     def configure(working_path)
       @working_path = working_path
+      @build_path = working_path + '/videos/'
+      @output_path = working_path + '/html/'
     end
     
     # Borrowed from Jeremy Ashkenas's wonderful cloud-crowd gem.

@@ -20,7 +20,10 @@ module VidSkim
         end
       end
     end
-     
+    
+    def self.walk_tree(ext)
+      Dir[VidSkim.working_path + "/videos/**/*#{ext}"]
+    end
   
     # Check if a file exists and asks the user if they want to overwrite it         
     # returns false if they say no.

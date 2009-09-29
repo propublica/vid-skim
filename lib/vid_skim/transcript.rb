@@ -34,6 +34,10 @@ module VidSkim
     # Returns the hash representation
     def to_hash
       c = {}
+      c["youtube_id"] = @youtube_id
+      c["title"] = @title
+      c["default"] = @default
+      c["duration"] = @duration
       @divisions.each_pair{|d,v| c.merge!(v.collect)}
       c
     end 

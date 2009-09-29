@@ -28,7 +28,7 @@ module VidSkim
       file_tree = {}
       working_dir = Inflector.parameterize(skim.title)
       file_tree[working_dir] = 
-                        [["/#{skim.title}.trans", @transcript_t.result(binding)]]
+                        [["/#{working_dir}.trans", @transcript_t.result(binding)]]
       skim.divisions.each do |title, division|
         puts division
         file_tree[working_dir] << [
@@ -52,14 +52,16 @@ module VidSkim
     # directory
     def compile
       Dir[VidSkim.build_path + "**"].each do |dir|
+        next unless File.directory?(dir)
         @skim = VidSkim::Transcript.new({})
         Dir["#{dir}/*.{trans,div,entry}"].each do |path|
-          path =~ /\.(trans|div|entry)/
+          path =~ /.*\.(trans|div|entry)/
           send("compile_#{$1}", File.open(path).read.split("\n"))
+          p @skim
+          
         end
-        p @skim.to_hash
-        
-        Files.create_file(VidSkim.build_path+ Inflector.parameterize(@skim.title) + ".json", @skim.to_json)
+          p @skim
+        Files.create_file(VidSkim.build_path + Inflector.parameterize(@skim.title) + ".json", @skim.to_json)
       end
       
     
@@ -93,7 +95,7 @@ module VidSkim
     end
     
     def assign(obj, dest, values)
-      dest.each_with_index do |attribute, i|
+      dest.each do |attribute|
         obj.send(attribute, values.shift)
       end
     end

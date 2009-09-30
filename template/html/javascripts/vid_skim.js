@@ -1,9 +1,9 @@
 /*
 ###### Preloader
 */
-jQuery.preloadImages = function(){
+$.preloadImages = function(){
   $.each(arguments, function (){
-    jQuery("<img>").attr("src", this);
+    $("<img>").attr("src", this);
   });
 };
 
@@ -155,11 +155,13 @@ function defineTranscript($) {
       $(timeline + " .time_box").css({
         'background-color': this.color
       });
+      this.highlightSection();
+      
       $(timeline + " .time_box").hover(function(){
         transcript.highlightSection();
-        $(this).css({'background-color':this.hover});
+        $(this).css({'background-color':transcript.parsed_data.hover});
       }, function(){
-        $(this).css({'background-color':this.color});
+        $(this).css({'background-color':transcript.parsed_data.color});
         transcript.highlightSection();
       });
     },
@@ -167,12 +169,11 @@ function defineTranscript($) {
     
     //highlights the current section on the timeline
     highlightSection: function(){
+      $(this.timeline_id + ' .time_box').css({
+        'background-color':
+        this.parsed_data.color  
+      });
       if(this.current_texts[0]) {
-        $(this.timeline_id + ' .time_box').css({
-          'background-color':
-          this.parsed_data.color  
-        });
-        console.log(this.parsed_data);
         
         $(this.timeline_id + ' .'+
          this.parameterize(this.current_texts[0].title)).css({
@@ -199,11 +200,12 @@ function defineTranscript($) {
         var texts = this.lookup(time);
         if(this.testTexts(texts)){ /* transcript */
               this.current_texts = texts;
+        		  this.highlightSection();
+              
               var trans_all = "";
             
               if(this.current_texts[0]){
                 /* index highlighting */
-          		  this.highlightSection();
                 $('a.index').removeClass('active');
                 $('a.index.' + this.parameterize(this.current_texts[0].title))
                   .addClass('active');
@@ -223,7 +225,7 @@ function defineTranscript($) {
           
               if(this.current_texts[0] && Math.floor(this.current_texts[0].range[0]) > 0){
                 var new_seconds = Math.floor(this.current_texts[0].range[0]);
-                if(new_seconds != this.hashSeconds){
+                if(new_seconds !== this.hashSeconds){
                   this.hashSeconds = Math.floor(this.current_texts[0].range[0]);
                   window.location.href = trans.baseURL + "#" + this.hashSeconds;
                 }
@@ -270,7 +272,7 @@ function defineTranscript($) {
          var after = this.parsed_data.entries[start+1];
          var found = this.parsed_data.entries[start];
          var first = this.parsed_data.entries[0];
-         var last = this.parsed_data.entries[this.entries.length-1];
+         var last = this.parsed_data.entries[this.parsed_data.entries.length-1];
          
          if(this.parsed_data.entries[start] && 
             this.parsed_data.entries[start].range[0] <= time &&

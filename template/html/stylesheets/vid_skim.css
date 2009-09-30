@@ -50,8 +50,8 @@
   font-size: 12px; 
   width: 300px;
   position:absolute; 
-  top:-1.1em; 
-  left: 0;
+  top:-16px; 
+  left: 0px;
   display:none;
   z-index:200;
 }
@@ -121,7 +121,7 @@
   float: left;
   width: 143px;
 }
-#vid-skim div.rail a, div.rail p, div.vid-tabs a {
+#vid-skim div.rail a, #vid-skim div.rail strong, #vid-skim div.vid-tabs a {
   font-size:11px;
   display: block;
   font-weight: bold;

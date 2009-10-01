@@ -22,8 +22,6 @@
   text-decoration:none;
 }
 
-
-
 #vid-skim div.viewer {
   padding: 20px;
   border: 5px solid #e4e4e4;
@@ -104,7 +102,6 @@
 
 #vid-skim div.trans{
   float: right;
-  /*border: 1px solid div.aaa;*/
   width: 375px;
   height: 300px;
   margin: 0 5px 5px 5px;

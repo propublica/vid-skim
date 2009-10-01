@@ -10,7 +10,7 @@ module VidSkim
 <%= skim.default || "DEFAULT TAB" %>
       EOS
       @division_t = ERB.new <<-EOS
-<%= division.name || "DIVISION NAME" %>
+<%= division.name || "DIVISION ID" %>
 <%= division.color || "COLOR IN #XXXXXX FORMAT" %>
 <%= division.hover || "HOVER COLOR IN #XXXXXX FORMAT" %>
       EOS
@@ -65,9 +65,9 @@ module VidSkim
       end
       
     
-    #rescue NameError => boom
-     #     message = "One of your build files failed, are you sure everything's in the right order and the right format?\n\nThis might help:\n#{boom.message}"
-      #  raise NameError.new(message, boom.name)
+    rescue NameError => boom
+        message = "One of your build files failed, are you sure everything's in the right order and the right format?\n\nThis might help:\n#{boom.message}"
+      raise NameError.new(message, boom.name)
       
     end
     

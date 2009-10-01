@@ -1,0 +1,108 @@
+There are two ways to create a *Video Skimmer* page either you write a JSON Format or an Expanded format. Before launching in we should define a bit of terminology and explain a few quirks:
+
+A *Video Skimmer* is built from a json file which has one or more _divisions_ which in turn have one or more _entries_. Each _division_ is identified by a single word key, (e.g. "Transcript" or "Annotations") and on defines the tabs along the top of a *Video Skimmer*. Each _entry_ defines the start and end of each section of transcript and is represented in the right side of each *Video Skimmer*. If two or more _entries_ have the same title they'll be collapsed in the timeline and along the side.
+
+h2. JSON
+
+!http://propublica.s3.amazonaws.com/assets/vid-skim/vid-skim-build.jpg!
+
+The most straightforward way to create a *Video Skimmer* page is to write a JSON specification. An example of the json structure is in @~/video_skimmer/videos/example.json@, and it conforms to a structure like this:
+
+<pre>
+  {
+    "youtube_id": "ID of the YouTube video",
+    "title": "Title of the video",
+    "length": "Length of the video in seconds",
+    "default": "Key of the default division to load",
+    "divisions": {
+      "UniqueDivisionIdentifier": {
+        "color": "Color of the timeline in #xxxxxx format",
+        "hover": "Hover color of the timeline in #xxxxxx format",
+        "entries": [
+          {
+            "title": "Title of this section",
+            "range": ["hh:mm:ss", "hh:mm:ss"]
+            "transcript": "<p> html goes here</p>"
+          }
+          ...
+          ]
+        }
+      }
+    }
+  }
+</pre>
+
+Once your json is complete, saved in *Video Skimmer* directory under @videos/NAME.json@ and valid (hint: validate with "jsonlint":http://www.jsonlint.com/), run
+
+<pre>
+  >> vidskim build ~/video_skimmer
+</pre>
+
+in the command line and the html files will show up in the *Video Skimmer* @html@ directory.
+ 
+
+h2. Expanded
+
+!http://propublica.s3.amazonaws.com/assets/vid-skim/vid-skim-compile.jpg!
+
+The expanded specification is designed for easier production than json--trailing commas, I'm looking at you--and it's goal is to provide an easy route for defining each *Video Skimmer*. It also is the route that @vidskim parse@ uses (see: [[Writing a Parser]]). 
+
+In order to use the expanded specification first create a new directory in the *Video Skimmer* @videos@ directory to hold a Transcript (@.trans@) file, one or more Division (@.div@) files and one or more Entry (@.entry@) files.
+
+Once your @.trans@, @.div@ and @.entry@ files are complete run:
+
+<pre>
+ >> vidskim compile ~/video_skimmer
+</pre>
+
+which will compile your entries to a @.json@ file and output the html in the @html@ directory.
+
+
+h3. .trans Files
+
+The @.trans@ file has the following format (each item separated by a newline):
+
+<pre>
+TITLE OF VIDEO
+YOUTUBE_ID
+DURATION IN SECONDS
+DEFAULT TAB
+</pre>
+
+# @TITLE OF VIDEO@ The title of the *Video Skimmer*
+# @YOUTUBE_ID@ The youtube id of the video.
+# @DURATION IN SECONDS@ The total seconds of the video.
+# @DEFAULT TAB@ The highlighted tab when the page loads.
+
+h3. .div Files
+
+Each @.div@ file has the following format (each item separated by a newline):
+
+<pre>
+DIVISION_ID
+COLOR IN #XXXXXX FORMAT
+HOVER COLOR IN #XXXXXX FORMAT
+</pre>
+
+# @DIVISION_ID@ Is a unique identifier for each division.
+# @COLOR IN #XXXXXX FORMAT@ The color of the timeline for this division.
+# @HOVER COLOR IN #XXXXXX FORMAT@ The hover color of the timeline.
+
+h3. .entry Files
+
+Each @.entry@ file has the following format (each item separated by a newline):
+
+<pre>
+DIVISION_ID
+TITLE
+['00:00:00', '00:00:00']
+<p>
+  HTML HERE (CAN BE MULTIPLE LINES)
+</p>
+</pre>
+
+# @DIVISION_ID@ Is the unique identifier for the division associated with this entry.
+# @TITLE@ Is the title of the entry, it appears along the timeline and the side rail of the *Video Skimmer*
+# @['00:00:00', '00:00:00']@ is the range in @'hh:mm:ss'@ format, start and end.
+# And finally each entry can have one or more lines of html code. 
+

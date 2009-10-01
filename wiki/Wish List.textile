@@ -1,0 +1,6 @@
+Future improvements for *Video Skimmer*:
+
+* Allow divisions to have a title longer than one word.
+* More specs especially for <code>VidSkim::Compiler</code> and the built in Parsers.
+* Clean up the Javascript
+* Refactor the <code>VidSkim::Files.create_tree</code> method to use <code>File.basename</code> and <code>File.dirname</code>

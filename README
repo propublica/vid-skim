@@ -1,137 +1,48 @@
 = Video Skimmer
 
-<em>A transcript presentation layer for those of us who would rather use
-YouTube as our CDN and mass audience provider.</em>
+ --- ---
++-------------+
+| +----+ ---- | ---
+| | :) | ---- | ---
+| +----+ ---- | ---
++-------------+
 
-=== How it Works
 
-There are two ruby classes, Tube and Transcript, that build functionality from
-a yaml and a json file, respectively. A Tube instance contains the basic data
-for formatting of the page, and contains a reference to a Transcript instance
-which parses and sorts a json file.
+<em>Transcripts and commentary for long boring videos on YouTube!</em>
 
-The json file (see kwalify schema in <tt>config/tubes/schema.json</tt>) 
-contains one or more divisions of the content each with timecoded entries, 
-which sync with the video on YouTube. 
-
-Most of the view functionality and look is built by application.js, which 
-defines a javascript class called transcript. The transcript object builds the 
-timeline from the json defined in 
-<tt>config/tube/transcript/YOUTUBE_ID.json</tt> and served through a rails 
-view. Most of the UI magic happens by treating the youtube player as the 
-engine for every UI change. That is, the transcript instance needs to check 
-the current player's time every couple hundred milliseconds and redraw and 
-update the UI.
-
-=== Modifying the View 
-
-The javascript pretty much requires that your html reads like this:
-
-  <div id="timeline">
-    <div class="scrubber"></div>
-    <div class="position"></div>    
-  </div>
-  <div id="vid-nav">
-    <%["Next", "Previous"].each do |i| %>
-      <a href="" class="<%= i.downcase %>"><%= i%></a>
-    <%end%>
-  </div>
-    
-
-  <div id="player_container">
-    <div id="ytapiplayer">
-      You need Flash player 8+ and JavaScript enabled to view this video.
-    </div>
-  </div>
-  <div id="trans">
-    <div id="extra"></div>
-  </div>
-  <div id="annotation"></div>
-    
-  </div>
-  <div id="rail">
-    <% @tube.transcript.divisions.each_pair do |x, d|%>
-    <div class="<%= x.parameterize('').downcase %>">
-    <p><strong><%= x %></strong></p>
-    <ul>
-      <% d.unique_entries_by_title.each do |e| %>
-        <li>
-          <a class="index <%= e.title.parameterize('').downcase %>"
-             href="#<%= e.range.to_seconds(:low) %>" class="index">
-          <%= e.title %>
-         </a>
-         </li>
-      <% end %>
-    </ul>
-    </div>
-    <%end%>
-  </div>
+  * Present your videos with transcripts and running commentary.
+  * Let your users skip to the good parts.
   
-And the constructor for the JS Transcript class takes each id as an argument:
+  Designed for:
 
-  var trans = new Transcript('#timeline', '#trans', '#extra',
-              '#vid-nav','#vid-tabs', '#rail', '#viewer', window.location);
-                
-So your best bet for changing the way it looks is to modify the css. A
-warning: most of the #timeline css is pretty specific so modifying the child 
-selectors there can mess with the layout in various browsers.
+  * News organizations
+  * Producers comfortable with the command line
+  * Raw video from court transcripts, Political Speeches, Uncut Interviews. In
+    short: lengthy video.
 
-You also have to load the json into the transcript instance like so:
+== Documentation
+  Wiki: https://github.com/propublica/vid-skim/wikis
+  RDoc: http://rdoc.info/projects/propublica/vid-skim
 
-  $(document).ready(function (){
-    $.getJSON(trans.baseURL + ".json", function (data, textStatus) { 
-      trans.setData(data, "<%=@tube.default%>");      
-    });
-  });
+== Getting Started
 
-And finally hook into the YouTube player with:
-
-  function onYouTubePlayerReady(playerId) {
-
-    var ytplayer = document.getElementById('ytplayer');
-    //caches the player so transcript can access it from within the instance
-    trans.setPlayer(ytplayer);
+  Install the gem
+  
+    >> sudo install vid-skim
+  
+  Install the directory structure.
+  
+    >> vidskim install video-skimmer
+  
+  Under video-skimmer/ you'll see an html and videos directory under build. 
+  Put your vidskim json or expanded files there (see the wiki for info).
+  
+  Once your json is complete run:
     
-    
-    trans.seek(trans.hashSeconds);
-    
-    // @tube.duration is a required api call so we can map the width of the  
-    // timeline to the length of the video
-    trans.setBounds(<%= @tube.duration %>);
-    setInterval(updateytplayerInfo, 250);  
-    trans.initted = true;
-  }
+    >> vidskim build video-skimmer
+  
+  And you'll see some html files that look something like this:
+  
+    http://projects.propublica.org/skimmer/ron_boline
+  
 
-
-  function updateytplayerInfo() {
-    trans.draw(trans.player.getCurrentTime());
-  }
-
-<tt>updateytplayerInfo()</tt> is the linkage between the javascript and the UI, so make sure the browser is calling it at some regular interval.
-
-One of the future improvements to this layout is to refactor some of it, most 
-notably move the timeline into js templates, so this section will most likely 
-change. 
-
-=== Required Libraries
-
-* Nokogiri - for parsing the google data feed. Necessary to find out the
-  duration of a given video.
-
-
-=== Wish List (Features TK)
-
-* Admin Section: the current plan for the admin area requires that it run only 
-  in development environment, because, for such a thin app, it doesn't make
-  much sense to have a forward facing security risk. There should also be a
-  cap task that sends the transcripts to the production server. 
-
-* Use Javascript templates and models: it would be nice to separate the model 
-  definition and use template code in the Javascript. Right now the Transcript 
-  object is really messy, and for readability and maintainability concerns it 
-  would be best to separate the transcript accessor/convenience methods, event 
-  listeners and to create js templates. 
-
-* Benchmark/load test the javascript in various browsers.
-
-* A lot more specs/tests.

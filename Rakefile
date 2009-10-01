@@ -1,7 +1,53 @@
-desc "Run all specs"
-task :spec do
-  sh "spec --colour --format progress --loadby mtime --reverse #{Dir['spec/*.rb'].join(' ')}"
+require 'spec/rake/spectask'
+require 'selenium/rake/tasks'
+
+
+spec_opts = ['--colour', '--format progress', '--loadby mtime', '--reverse']
+
+desc "Run all specs except selenium"
+Spec::Rake::SpecTask.new(:spec) do |t|
+  t.spec_files = Dir['spec/*_spec.rb']
+  t.spec_opts = spec_opts
 end
+
+
+Selenium::Rake::RemoteControlStartTask.new do |rc|
+  rc.port = 4444
+  rc.timeout_in_seconds = 3 * 60
+  rc.background = true
+  rc.wait_until_up_and_running = true
+  rc.jar_file = "spec/selenium-server.jar"
+  rc.additional_args << "-singleWindow > /dev/null"
+end
+
+Selenium::Rake::RemoteControlStopTask.new do |rc|
+  rc.host = "localhost"
+  rc.port = 4444
+  rc.timeout_in_seconds = 3 * 60
+  rc.wait_until_stopped = true
+end
+
+namespace :selenium do
+  task :spec do
+    begin
+      Rake::Task[:"selenium:rc:start"].execute []
+      Rake::Task[:"selenium:ui"].execute []
+    ensure
+      Rake::Task[:"selenium:rc:stop"].execute []
+    end
+  end
+ 
+  desc "Run ui specs"
+  Spec::Rake::SpecTask.new(:ui) do |t|
+    t.spec_files = Dir['spec/*_spec_selenium.rb']
+    t.spec_opts = spec_opts
+    t.spec_opts << "--require 'rubygems,selenium/rspec/reporting/selenium_test_report_formatter'"
+    t.spec_opts << "--format=Selenium::RSpec::SeleniumTestReportFormatter:./tmp/ui_tests_report.html"
+  end
+end
+
+
+
 
 namespace :gem do
   

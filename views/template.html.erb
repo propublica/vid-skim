@@ -19,7 +19,7 @@
 <div id="vid-skim">
   <div class="vid-tabs">
 
-      <%# This means that divisions can only be one word, no special chars, grrr%>
+      <%# This means that divisions can only be one word, no special chars, grrr %>
     <% @transcript.divisions.each_pair do |x, d| %><div><a href="#" class="tab-<%=d.name%>"><%= d.name %></a></div><% end %>
 
   </div>
@@ -104,4 +104,6 @@ $.preloadImages(
 
 </script>
 
+</body>
+</html>
 

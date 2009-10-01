@@ -1,7 +1,7 @@
 {  
   "youtube_id":"mXalr9UuNwo",
   "title": "Ron Boline Interview",
-  "length": "1800",
+  "duration": "1800",
   "default": "Transcript",
   "divisions": {
     "Transcript": {
@@ -151,7 +151,7 @@
         {
           "title": "Funding the Insurgency",
           "range": ["00:07:36", "00:08:31"], 
-          "transcript": "<p>Boline helped arm and equip Triple Canopy security guards in Iraq in 2004. In his deposition, he said that the American taxpayer money used to buy weapons flowed to insurgents—though he offered no proof. Triple Canopy said it took precautions to prevent money from falling into the wrong hands, but also had no proof that its strategies succeeded.</p>"
+          "transcript": "<p>Boline helped arm and equip Triple Canopy security guards in Iraq in 2004. In his deposition, he said that the American taxpayer money used to buy weapons flowed to insurgents--though he offered no proof. Triple Canopy said it took precautions to prevent money from falling into the wrong hands, but also had no proof that its strategies succeeded.</p>"
         },
         {
           "title": "Barter System",

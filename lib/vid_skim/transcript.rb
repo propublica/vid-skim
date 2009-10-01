@@ -11,7 +11,7 @@ module VidSkim
       @youtube_id = hash["youtube_id"]
       @title = hash["title"]
       @default = hash["default"]
-      @duration = hash["length"].to_i
+      @duration = hash["duration"].to_i
       send("divisions=", hash["divisions"]) if hash["divisions"]
     end
     

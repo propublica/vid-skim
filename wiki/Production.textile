@@ -55,7 +55,13 @@ Once your @.trans@, @.div@ and @.entry@ files are complete run:
  >> vidskim compile ~/video_skimmer
 </pre>
 
-which will compile your entries to a @.json@ file and output the html in the @html@ directory.
+which will compile your entries to a @.json@ file. Then, to output the html in the @html@ directory run:
+
+<pre>
+  >> vidskim build ~/video_skimmer
+</pre>
+
+
 
 
 h3. .trans Files

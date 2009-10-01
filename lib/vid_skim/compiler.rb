@@ -30,7 +30,6 @@ module VidSkim
       file_tree[working_dir] = 
                         [["/#{working_dir}.trans", @transcript_t.result(binding)]]
       skim.divisions.each do |title, division|
-        puts division
         file_tree[working_dir] << [
             "/#{division.name}.div",
             @division_t.result(binding)
@@ -57,10 +56,7 @@ module VidSkim
         Dir["#{dir}/*.{trans,div,entry}"].each do |path|
           path =~ /.*\.(trans|div|entry)/
           send("compile_#{$1}", File.open(path).read.split("\n"))
-          p @skim
-          
         end
-          p @skim
         Files.create_file(VidSkim.build_path + Inflector.parameterize(@skim.title) + ".json", @skim.to_json)
       end
       
@@ -68,7 +64,6 @@ module VidSkim
     rescue NameError => boom
         message = "One of your build files failed, are you sure everything's in the right order and the right format?\n\nThis might help:\n#{boom.message}"
       raise NameError.new(message, boom.name)
-      
     end
     
     private
@@ -90,7 +85,7 @@ module VidSkim
       division_name = arr.shift
       assign(entry, [:title=], arr)
       entry.range = JSON.parse(arr.shift)
-      entry.transcript = arr.join("\n")      
+      entry.transcript = arr.join      
       @skim.divisions[division_name].entries << entry
     end
     

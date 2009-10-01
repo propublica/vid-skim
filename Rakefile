@@ -41,8 +41,6 @@ namespace :selenium do
   Spec::Rake::SpecTask.new(:ui) do |t|
     t.spec_files = Dir['spec/*_spec_selenium.rb']
     t.spec_opts = spec_opts
-    t.spec_opts << "--require 'rubygems,selenium/rspec/reporting/selenium_test_report_formatter'"
-    t.spec_opts << "--format=Selenium::RSpec::SeleniumTestReportFormatter:./tmp/ui_tests_report.html"
   end
 end
 

@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
 
   if s.respond_to?(:add_development_dependency)
     s.add_development_dependency 'rspec', ['>= 1.2.8']
+    s.add_development_dependency 'selenium-client', ['>= 1.2.17']
   end
   
   s.files = %w(

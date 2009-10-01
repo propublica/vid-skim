@@ -7,8 +7,7 @@
 | +----+ ---- | ---
 +-------------+
 
-
-<em>Transcripts and commentary for long boring videos on YouTube!</em>
+# Transcripts and commentary for long boring videos on YouTube! #
 
   * Present your videos with transcripts and running commentary.
   * Let your users skip to the good parts.
@@ -21,6 +20,7 @@
     short: lengthy video.
 
 == Documentation
+
   Wiki: https://github.com/propublica/vid-skim/wikis
   RDoc: http://rdoc.info/projects/propublica/vid-skim
 
@@ -42,7 +42,6 @@
     >> vidskim build video-skimmer
   
   And you'll see some html files that look something like this:
-  
-    http://projects.propublica.org/skimmer/ron_boline
+     http://projects.propublica.org/skimmer/ron_boline
   
 

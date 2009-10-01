@@ -2,3 +2,5 @@
 */.svn
 build
 tmp
+doc
+coverage

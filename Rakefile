@@ -8,6 +8,8 @@ desc "Run all specs except selenium"
 Spec::Rake::SpecTask.new(:spec) do |t|
   t.spec_files = Dir['spec/*_spec.rb']
   t.spec_opts = spec_opts
+  t.rcov = true
+  t.rcov_opts = %w{--exclude spec\/,gems\/}
 end
 
 

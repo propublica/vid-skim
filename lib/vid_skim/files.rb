@@ -5,7 +5,12 @@ module VidSkim
     class << self
       attr_accessor :force
     end
-    
+  
+    # To be refactored soon. Takes an hash of arrays
+    # => puts tree
+    # >> {"path" => ["filename", contents], ... }
+    # which allows us to to write out the file and underlying directories.
+    # Allows for escape oppurtunities if we're about to overwrite something.
     def self.create_tree(tree)
       tree.each_pair do |dir, files|
         dir = "/videos/" + dir
@@ -21,8 +26,9 @@ module VidSkim
       end
     end
     
-    def self.walk_tree(ext)
-      Dir[VidSkim.working_path + "/videos/**/*#{ext}"]
+    # Walk the build path and return files with a given extension.
+    def self.walk_build_path(ext)
+      Dir[VidSkim.build_path + "**/*#{ext}"]
     end
   
     # Check if a file exists and asks the user if they want to overwrite it         

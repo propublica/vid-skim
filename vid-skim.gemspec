@@ -6,8 +6,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://propublica.org"
   s.summary     = "Annotate videos with transcripts and editors' notes"
   s.description = <<-EOS
-    
-  
+    Transcripts and commentary for long boring videos on YouTube!  
   EOS
   
   s.authors           = ['Jeff Larson']
@@ -25,7 +24,7 @@ Gem::Specification.new do |s|
                          '--all'
   
   s.add_dependency 'json',          ['>= 1.1.7']
-  s.add_dependency 'edl',           ['']
+  s.add_dependency 'edl',           ['>= 0.1.0']
 
   if s.respond_to?(:add_development_dependency)
     s.add_development_dependency 'rspec', ['>= 1.2.8']
@@ -47,6 +46,8 @@ Gem::Specification.new do |s|
     lib/vid_skim/compiler.rb
     lib/vid_skim/inflector.rb
     lib/vid_skim.rb
+    parsers/json_parser.rb
+    parsers/edl_parser.rb
     vid-skim.gemspec
     views/template.html.erb
   )

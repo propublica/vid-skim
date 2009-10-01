@@ -1,8 +1,7 @@
-# Transcript is a json parser/updater which parses a Video Skimmer formatted
-# json file.
-
 module VidSkim
   
+  # Transcript is a json parser/updater which parses a Video Skimmer formatted
+  # json file. 
   class Transcript
     attr_accessor :divisions, :title, :youtube_id, :duration, :default
 
@@ -26,12 +25,12 @@ module VidSkim
        
     end
     
-    # Returns the json representation
+    # Return the json representation
     def to_json
       to_hash.to_json
     end
     
-    # Returns the hash representation
+    # Return the hash representation
     def to_hash
       c = {}
       c["youtube_id"] = @youtube_id
@@ -44,7 +43,7 @@ module VidSkim
     end 
   
 
-    # Returns a parameterized version of the title for creating the actual
+    # Return a parameterized version of the title for creating the actual
     # html file
     def slug
       Inflector.parameterize(@title, "_")
@@ -52,7 +51,7 @@ module VidSkim
 
   
     class << self
-      # Searches for a Transcript based on a path
+      # Search for a Transcript based on a path
       def find(f)
         hash = JSON.parse(File.open("#{f}").read)
         Transcript.new(hash)
@@ -70,7 +69,7 @@ module VidSkim
         @entries = []
       end
     
-      # Sets each individual Entry from a straight hash of +entries+, which 
+      # Set each individual Entry from a straight hash of +entries+, which 
       # are synced to the video
       def entries=(entries)
         @entries=[]
@@ -81,13 +80,13 @@ module VidSkim
                      end
       end
     
-      # Returns an array of entries ensuring that their sorted by the low end 
+      # Return an array of entries ensuring that their sorted by the low end 
       # of each Range
       def entries
         @entries.sort!{|a, b| a.range.low <=> b.range.low }
       end
       
-      # Collects each Entry and returns a hash
+      # Collect each Entry and returns a hash
       def collect
         c = {
           @name => {
@@ -103,7 +102,7 @@ module VidSkim
       
       
     
-      # Builds a dynamic finder (<tt>unique_entries_by_attribute</tt> where 
+      # Build a dynamic finder (<tt>unique_entries_by_attribute</tt> where 
       # attribute is an Entry attribute) so that filters returns unique 
       # entries you can do things like:
       #   >> entries = [{'title'=>'Hamm', 'range'=>["00:00:00", "00:00:00"]},
@@ -124,7 +123,7 @@ module VidSkim
       end
       
       private
-        # Uses a set to build the unique entries returned by method missing
+        # Use a set to build the unique entries returned by method missing
         def unique_entries_by_(key) 
           seen = Set.new()
           entries.select { |e|
@@ -141,13 +140,13 @@ module VidSkim
       def initialize()
       end
     
-      # Sets a Transcript::Entry::Range object based on a +range+ of the format
+      # Set a Transcript::Entry::Range object based on a +range+ of the format
       # ['hh:mm:ss', 'hh:mm:ss'].
       def range=(range)
         @range = Range.new(range)
       end
     
-      # Returns the original hash representation of this object
+      # Return the original hash representation of this object
       def collect
         {
           "title"=> @title,

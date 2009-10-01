@@ -1,7 +1,9 @@
 module VidSkim
-
+  # The compiler handles both the compiling to json of an expanded directory, 
+  # and the creation of expanded directories.
   class Compiler
     
+    # Set up the erb templates for .entry, .div and .trans files.
     def initialize
       @transcript_t = ERB.new <<-EOS
 <%= skim.title || "TITLE OF VIDEO" %>
@@ -68,11 +70,13 @@ module VidSkim
     
     private
      
+    # Compile a trans file
     def compile_trans(arr)
       assign(@skim, [:title=, :youtube_id=, :duration=, :default=], arr)
       @skim.duration = @skim.duration.to_i || 0
     end
     
+    # Compile a division file
     def compile_div(arr)
       @skim.divisions[arr[0]] = Transcript::Division.new("")
       name = arr.shift
@@ -80,6 +84,7 @@ module VidSkim
       assign(@skim.divisions[name], [:color=, :hover=], arr)     
     end
     
+    # Compile an entry file
     def compile_entry(arr)
       entry = Transcript::Entry.new()
       division_name = arr.shift
@@ -89,6 +94,7 @@ module VidSkim
       @skim.divisions[division_name].entries << entry
     end
     
+    # Assign each attribute to the right place in +@skim+
     def assign(obj, dest, values)
       dest.each do |attribute|
         obj.send(attribute, values.shift)

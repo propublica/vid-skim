@@ -41,7 +41,7 @@ Commands:
     end
     
    
-    
+    # Parse the options from the command line
     def parse_options
       @option_parser = OptionParser.new do |opts|
         opts.on('-p', '--parser NAME', 'Name of parser') do |parser_name|
@@ -74,7 +74,7 @@ Commands:
     
     # Build the html files from the json in the videos directory.
     def run_build
-      Files.walk_tree(".json").each do |f|
+      Files.walk_build_path(".json").each do |f|
         template = ERB.new(File.open(VidSkim::ROOT +
                                 '/views/template.html.erb', 'r').read)
         @transcript = Transcript.find(f)
@@ -83,8 +83,8 @@ Commands:
       end
     end
     
-    # Runs a parser to build the files in the videos directory.  Allow an escape hatch if the   
-    # directory exists
+    # Run a parser to build the files in the videos directory.  Allow an   
+    # escape hatch if the directory exists
     def run_parse
       raise Error.new("To run a parser you must use both the -p and -f flags.") if
               !@options[:parser_name] && !@options[:parser_file]
@@ -93,7 +93,7 @@ Commands:
       parser.parse
     end
     
-    # Runs the compiler to compile and build the files in each directory 
+    # Run the compiler to compile and build the files in each directory 
     # created by a parser or by hand.
     def run_compile
       compiler = VidSkim::Compiler.new
@@ -107,6 +107,7 @@ Commands:
     
     
     private
+    
     # Make sure that everyone knows where to put any files they generate
     def configure
       VidSkim.configure(@directory)

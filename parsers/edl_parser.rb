@@ -4,7 +4,7 @@ gem 'vid-skim'
 gem 'edl'
 
 class EdlParser < VidSkim::Parser
-  
+  # Build a VidSkim collection of files from an EDL file.
   def load(file)
     list = EDL::Parser.new(fps=30).parse(File.open(file))
     @transcript = VidSkim::Transcript.new({})

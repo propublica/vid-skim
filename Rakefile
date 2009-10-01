@@ -30,10 +30,12 @@ end
 namespace :selenium do
   task :spec do
     begin
+      `thin start -R #{Dir.pwd}/spec/selenium_test_server.ru -d -c .`
       Rake::Task[:"selenium:rc:start"].execute []
       Rake::Task[:"selenium:ui"].execute []
     ensure
       Rake::Task[:"selenium:rc:stop"].execute []
+      `thin stop -R #{Dir.pwd}/spec/selenium_test_server.ru -c .`
     end
   end
  
@@ -43,7 +45,6 @@ namespace :selenium do
     t.spec_opts = spec_opts
   end
 end
-
 
 
 

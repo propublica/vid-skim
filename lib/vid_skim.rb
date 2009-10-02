@@ -23,7 +23,7 @@ module VidSkim
   
   
   class << self
-    attr_reader :working_path, :build_path, :output_path
+    attr_reader :working_path, :build_path, :output_path, :parser_path
     
     
     # Set the paths for each of the directories VidSkim works with.
@@ -31,6 +31,7 @@ module VidSkim
       @working_path = working_path
       @build_path = working_path + '/videos/'
       @output_path = working_path + '/html/'
+      @parser_path = working_path + '/parsers/'
     end
     
     # Borrowed from Jeremy Ashkenas's wonderful cloud-crowd gem.
@@ -39,7 +40,7 @@ module VidSkim
     def parsers
       return @parsers if @parsers
       @parsers = {}
-      installed = Dir["#{@working_path}/parsers/*.rb"]
+      installed = Dir["#{@parser_path}*.rb"]
       default   = Dir["#{ROOT}/parsers/*.rb"]
       
       (installed + default).each do |path|

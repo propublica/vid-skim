@@ -53,6 +53,11 @@ Once your parser is complete, save it in the *Video Skimmer* @parser/@ directory
 
 <pre>
 >> vidskim ~/video-skimmer -p word_parser -f input_file.doc
+created build/videos/input_file/input_file.trans
+created build/videos/input_file/Transcript.div
+created build/videos/input_file/Transcript-0.entry
+created build/videos/input_file/Transcript-1.entry
+....
 </pre>
 
 and you'll see a directory under @videos/@ called @<transcript_title>/@ containing the expanded files, and you can start in on [[Production]].

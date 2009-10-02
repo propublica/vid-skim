@@ -70,6 +70,7 @@ Commands:
       FileUtils.mkdir_p(VidSkim.working_path) unless File.exists?(VidSkim.working_path)
       Files.install_dir "#{VidSkim::ROOT}/template/html",   "#{VidSkim.output_path}"
       Files.install_dir "#{VidSkim::ROOT}/template/videos", "#{VidSkim.build_path}"
+      Files.install_dir "#{VidSkim::ROOT}/template/parsers", "#{VidSkim.parser_path}"
     end
     
     # Build the html files from the json in the videos directory.

@@ -75,10 +75,10 @@ DURATION IN SECONDS
 DEFAULT TAB
 </pre>
 
-# @TITLE OF VIDEO@ The title of the *Video Skimmer*
-# @YOUTUBE_ID@ The youtube id of the video.
-# @DURATION IN SECONDS@ The total seconds of the video.
-# @DEFAULT TAB@ The highlighted tab when the page loads.
+|@TITLE OF VIDEO@|The title of the *Video Skimmer*|
+|@YOUTUBE_ID@|The youtube id of the video.|
+|@DURATION IN SECONDS@|The total seconds of the video.|
+|@DEFAULT TAB@|The highlighted tab when the page loads.|
 
 h3. .div Files
 
@@ -90,9 +90,9 @@ COLOR IN #XXXXXX FORMAT
 HOVER COLOR IN #XXXXXX FORMAT
 </pre>
 
-# @DIVISION_ID@ Is a unique identifier for each division.
-# @COLOR IN #XXXXXX FORMAT@ The color of the timeline for this division.
-# @HOVER COLOR IN #XXXXXX FORMAT@ The hover color of the timeline.
+|@DIVISION_ID@|A unique identifier for each division.|
+|@COLOR IN #XXXXXX FORMAT@|The color of the timeline for this division.|
+|@HOVER COLOR IN #XXXXXX FORMAT@|The hover color of the timeline.|
 
 h3. .entry Files
 
@@ -107,8 +107,8 @@ TITLE
 </p>
 </pre>
 
-# @DIVISION_ID@ Is the unique identifier for the division associated with this entry.
-# @TITLE@ Is the title of the entry, it appears along the timeline and the side rail of the *Video Skimmer*
-# @['00:00:00', '00:00:00']@ is the range in @'hh:mm:ss'@ format, start and end.
-# And finally each entry can have one or more lines of html code. 
+|@DIVISION_ID@|The unique identifier for the division associated with this entry.|
+|@TITLE@| The title of the entry, it appears along the timeline and the side rail of the *Video Skimmer*|
+|@['00:00:00', '00:00:00']@|The range in @'hh:mm:ss'@ format, start and end.|
+| HTML HERE |Each entry can have one or more lines of html code.|
 

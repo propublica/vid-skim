@@ -110,5 +110,5 @@ TITLE
 |@DIVISION_ID@|The unique identifier for the division associated with this entry.|
 |@TITLE@| The title of the entry, it appears along the timeline and the side rail of the *Video Skimmer*|
 |@['00:00:00', '00:00:00']@|The range in @'hh:mm:ss'@ format, start and end.|
-| HTML HERE |Each entry can have one or more lines of html code.|
+|@<p>HTML HERE</p>@|Each entry can have one or more lines of html code.|
 

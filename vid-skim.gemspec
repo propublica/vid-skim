@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
     template/html/javascripts/vid_skim.js
     template/html/stylesheets/vid_skim.css
     template/videos/example.json
-    template/parsers
+    template/parsers/readme.txt
     lib/vid_skim/command.rb
     lib/vid_skim/transcript.rb
     lib/vid_skim/files.rb

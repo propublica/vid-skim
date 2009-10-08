@@ -1,0 +1,1 @@
+see http://wiki.github.com/propublica/vid-skim/writing-a-parser for how to write your own parser. 

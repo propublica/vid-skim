@@ -1,6 +1,6 @@
 There are two ways to create a *Video Skimmer* page either you write a JSON Format or an Expanded format. Before launching in we should define a bit of terminology and explain a few quirks:
 
-A *Video Skimmer* is built from a json file which has one or more _divisions_ which in turn have one or more _entries_. Each _division_ is identified by a single word key, (e.g. "Transcript" or "Annotations") and on defines the tabs along the top of a *Video Skimmer*. Each _entry_ defines the start and end of each section of transcript and is represented in the right side of each *Video Skimmer*. If two or more _entries_ have the same title they'll be collapsed in the timeline and along the side.
+A *Video Skimmer* is built from a json file which has one or more _divisions_ which in turn have one or more _entries_. Each _division_ is identified by a single word key, (e.g. "Transcript" or "Annotations") and defines the tabs along the top of a *Video Skimmer*. Each _entry_ defines the start and end of each section of transcript and is represented in the right side of each *Video Skimmer*. If two or more _entries_ have the same title they'll be collapsed in the timeline and along the side.
 
 h2. JSON
 
@@ -66,7 +66,7 @@ which will compile your entries to a @.json@ file. Then, to output the html in t
 
 h3. .trans Files
 
-The @.trans@ file has the following format (each item separated by a newline):
+The @.trans@ file holds the information about the youtube video, and has the following format (each item separated by a newline):
 
 <pre>
 TITLE OF VIDEO
@@ -82,7 +82,7 @@ DEFAULT TAB
 
 h3. .div Files
 
-Each @.div@ file has the following format (each item separated by a newline):
+Each @.div@ file defines the tabs along the top of each *Video Skimmer* and  has the following format (each item separated by a newline):
 
 <pre>
 DIVISION_ID
@@ -96,7 +96,7 @@ HOVER COLOR IN #XXXXXX FORMAT
 
 h3. .entry Files
 
-Each @.entry@ file has the following format (each item separated by a newline):
+Each @.entry@ file defines an individual entry in the transcript and has the following format (each item separated by a newline):
 
 <pre>
 DIVISION_ID

@@ -1,4 +1,4 @@
-= Video Skimmer
+=
 
  --- ---
 +-------------+
@@ -6,6 +6,10 @@
 | | :) | ---- | ---
 | +----+ ---- | ---
 +-------------+
+
+
+~ Video Skimmer
+
 
 # Transcripts and commentary for long boring videos on YouTube! #
 
@@ -19,12 +23,12 @@
   * Raw video from court transcripts, Political Speeches, Uncut Interviews. In
     short: lengthy video.
 
-== Documentation
+~ Documentation
 
   Wiki: https://github.com/propublica/vid-skim/wikis
   RDoc: http://rdoc.info/projects/propublica/vid-skim
 
-== Getting Started
+~ Getting Started
 
   Install the gem
   

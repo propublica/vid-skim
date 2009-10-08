@@ -1,11 +1,11 @@
 =
 
      --- ---             
-    ---------------      
-    | ------ ---- | ---  
+    +-------------+
+    | +----+ ---- | ---  
     | | :) | ---- | ---  
-    | ------ ---- | ---  
-    ---------------      
+    | +----+ ---- | ---  
+    +-------------+      
                          
   
 
@@ -31,21 +31,21 @@
 
   ~ Getting Started
 
-    # Install the gem
+    Install the gem
   
       >> sudo install vid-skim
   
-    # Install the directory structure.
+    Install the directory structure.
   
       >> vidskim install video-skimmer
   
-    # Under ./video-skimmer/ you'll see an html and and videos directory. 
-    # Put your vidskim json or expanded files in ./video-skimmer/videos/ (see the
-    # wiki for formatting info).
+    Under ./video-skimmer/ you'll see an html and and videos directory. 
+    Put your vidskim json or expanded files in ./video-skimmer/videos/ (see the
+    wiki for formatting info).
   
-    # Once your json is complete run:
+    Once your json is complete run:
     
       >> vidskim build video-skimmer
   
-    # And you'll see some html files that look something like this:
-    #   http://projects.propublica.org/skimmer/ron_boline
+    And you'll see some html files that look something like this:
+       http://projects.propublica.org/skimmer/ron_boline

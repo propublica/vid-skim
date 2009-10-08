@@ -1,16 +1,13 @@
 =
 
-  # x - +                 #
-  #########################
-  #                       #
-  #   --- ---             #
-  #  +-------------+      #
-  #  | +----+ ---- | ---  #
-  #  | | :) | ---- | ---  #
-  #  | +----+ ---- | ---  #
-  #  +-------------+      #
-  #                       #
-  #########################
+     --- ---             
+    +-------------+      
+    | +----+ ---- | ---  
+    | | :) | ---- | ---  
+    | +----+ ---- | ---  
+    +-------------+      
+                         
+  
 
   ~ Video Skimmer
 
@@ -20,7 +17,7 @@
     * Present your videos with transcripts and running commentary.
     * Let your users skip to the good parts.
   
-    # Designed for:
+    Designed for:
 
     * News organizations
     * Producers comfortable with the command line

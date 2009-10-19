@@ -1,6 +1,7 @@
 *.gem
 */.svn
 build
+html
 tmp
 doc
 coverage

@@ -33,7 +33,7 @@
 
     Install the gem
   
-      >> sudo install vid-skim
+      >> sudo gem install vid-skim
   
     Install the directory structure.
   

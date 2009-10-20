@@ -3,5 +3,6 @@
 build
 html
 tmp
+test
 doc
 coverage
